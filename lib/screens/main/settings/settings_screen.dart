@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/shared/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -12,14 +12,14 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      showAppBar: false,
-      screen: Column(
+    return BaseNavScreen(
+      title: 'Settings',
+      icon: Icons.settings_outlined,
+      content: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            'Settings',
-            style: kNormalTextStyle(context),
-          )
+
         ],
       ),
     );

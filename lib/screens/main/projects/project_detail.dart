@@ -1,9 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/shared/constants.dart';
-import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
@@ -14,17 +13,25 @@ class ProjectDetailScreen extends StatefulWidget {
 }
 
 class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerProviderStateMixin {
-  String searchTerm = '';
+
+  List<String> images = [
+    'assets/images/feature1.png',
+    'assets/images/feature2.png',
+    'assets/images/feature3.png',
+    'assets/images/feature1.png',
+    'assets/images/feature2.png',
+    'assets/images/feature3.png',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(
-      showAppBar: true,
+    return BaseNavScreen(
+      showAppbar: true,
       showBackButton: true,
       title: 'Project Detail',
       titleFontSize: 16.sp,
-      trailing: const MenuButton(),
-      screen: Column(
+      icon: Icons.note,
+      content: Column(
         children: [
           SizedBox(height: 10.h),
 
@@ -74,11 +81,12 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
                     child: ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return const MiniTaskCard(
+                        return TaskCard(
                           taskId: 1,
+                          images: images,
                           taskName: 'Task Name', 
+                          startDate: '01/01/2024',
                           endDate: '02/02/2024',
-                          showAssigned: true,
                         );
                       },
                     ),

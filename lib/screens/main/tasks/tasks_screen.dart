@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/screens/main/tasks/tabs/active_tasks_screen.dart';
 import 'package:taskify/screens/main/tasks/tabs/completed_tasks_screen.dart';
 import 'package:taskify/shared/constants.dart';
-import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -32,13 +32,13 @@ class _TasksScreenState extends State<TasksScreen> with TickerProviderStateMixin
       const Text('Completed'),
     ];
 
-    return BaseScreen(
-      showAppBar: true,
+    return BaseNavScreen(
+      showAppbar: true,
       showBackButton: true,
       title: 'Tasks',
       titleFontSize: 16.sp,
-      trailing: const MenuButton(),
-      screen: Column(
+      icon: Icons.note,
+      content: Column(
         children: [
 
           SearchField(

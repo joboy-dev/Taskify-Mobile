@@ -2,9 +2,8 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/main/home/home_screen.dart';
-import 'package:taskify/screens/main/projects/projects_screen.dart';
+import 'package:taskify/screens/main/notifications/notifications_screen.dart';
 import 'package:taskify/screens/main/settings/settings_screen.dart';
-import 'package:taskify/screens/main/tasks/tasks_screen.dart';
 import 'package:taskify/shared/constants.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -29,17 +28,17 @@ class _BottomNavbarState extends State<BottomNavbar> {
         ),
       ),
     ),
-    CustomNavigationBarItem(
-      icon: const Icon(Icons.work_outline),
-      selectedIcon: const Icon(Icons.work),
-      selectedTitle: Text(
-        '•',
-        style: kNormalTextStyle(context).copyWith(
-          color: kSecondaryColor,
-          fontSize: 4.sp
-        ),
-      ),
-    ),
+    // CustomNavigationBarItem(
+    //   icon: const Icon(Icons.work_outline),
+    //   selectedIcon: const Icon(Icons.work),
+    //   selectedTitle: Text(
+    //     '•',
+    //     style: kNormalTextStyle(context).copyWith(
+    //       color: kSecondaryColor,
+    //       fontSize: 4.sp
+    //     ),
+    //   ),
+    // ),
     CustomNavigationBarItem(
       icon: const Icon(Icons.notifications_outlined),
       selectedIcon: const Icon(Icons.notifications),
@@ -66,8 +65,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    const ProjectsScreen(),
-    const TasksScreen(),
+    // const ProjectsScreen(),
+    const NotificationsScreen(),
     const SettingsScreen(),
   ];
 
@@ -95,7 +94,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           selectedColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : kPrimaryColor,
           unSelectedColor: kNeutralDarkGrey,
           iconSize: 24.sp,
-          elevation: 10.r,
+          elevation: 5.r,
         ),
       ),
     );

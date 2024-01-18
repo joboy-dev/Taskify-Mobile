@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ].animate(
                 interval: kDurationMs(500),
                 delay: kDurationSecs(1),
-              ).slideX(duration: kDurationMs(500), begin: -0.5, end: 0.0)
+              ).slideX(duration: kDurationMs(500), begin: -0.1, end: 0.0)
               .fade(duration: kDurationMs(500), begin: 0.0, end: 1.0),
             ),
         

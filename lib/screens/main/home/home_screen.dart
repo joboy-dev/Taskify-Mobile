@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/screens/main/home/tabs/analytics_screen.dart';
 import 'package:taskify/screens/main/home/tabs/overview_screen.dart';
 import 'package:taskify/shared/constants.dart';
-import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,31 +32,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       const Text('Analytics'),
     ];
 
-    return BaseScreen(
-      showAppBar: false,
-      screen: Column(
+    return BaseNavScreen(
+      title: 'Dashboard',
+      icon: Icons.dashboard_customize_outlined,
+      content: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Dashboard',
-                    style: kAppbarTextStyle(context),
-                  ),
-                  SizedBox(width: 10.w),
-                  Icon(Icons.dashboard_customize, color: kMainColor(context), size: 24.sp,)
-                ],
-              ),
-
-              const MenuButton(),
-            ],
-          ),
-          SizedBox(height: 20.h),
-
           SearchField(
             hintText: 'Search', 
             onChanged: (value) {

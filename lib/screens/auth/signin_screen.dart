@@ -114,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ].animate(
                 interval: kDurationMs(500),
                 delay: kDurationSecs(1),
-              ).slideX(duration: kDurationMs(500), begin: -0.5, end: 0.0)
+              ).slideX(duration: kDurationMs(500), begin: -0.1, end: 0.0)
               .fade(duration: kDurationMs(500), begin: 0.0, end: 1.0),
             ),
 
@@ -134,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ],
             ).animate(
               delay: kDurationMs(1500)
-            ).slideX(duration: kDurationMs(500), begin: 0.5, end: 0.0)
+            ).slideX(duration: kDurationMs(500), begin: 0.1, end: 0.0)
               .fade(duration: kDurationMs(500), begin: 0.0, end: 1.0),
         
             SizedBox(height: 20.h),
