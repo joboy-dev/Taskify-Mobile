@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +11,22 @@ import 'package:taskify/shared/widgets/calendar.dart';
 import 'package:taskify/shared/widgets/date_text_widget.dart';
 import 'package:taskify/shared/widgets/search.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
+
+// Priority enum
+enum Priority {Low, Medium, High}
+
+// Based on backend values for priority
+Map priorityValues = {
+  Priority.Low: 'L',
+  Priority.Medium: 'M',
+  Priority.High: 'H'
+};
+
+// Map priorityValues = {
+//   'Low': 'L',
+//   'Medium': 'M',
+//   'High': 'H'
+// };
 
 class CreateTaskSheet extends StatefulWidget {
   const CreateTaskSheet({super.key});
@@ -40,6 +58,8 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
   String? selectedLabelColor;
 
   List selectedMembers = [];
+
+  String? selectedPriority;
 
   // Error texts
   bool showCalendarError = false;
@@ -177,7 +197,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             'Add members to the project',
             style: kNormalTextStyle(context).copyWith(
               color: kSemanticRed,
-              fontWeight: FontWeight.bold,
             ),
           ) : const SizedBox(),
           SizedBox(height: 10.h),
@@ -267,6 +286,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
                       onTap: () {
                         setState(() {
                           selectedLabelColor = color.toString().substring(6, 16);
+                          showLabelError = false;
                           logger(selectedLabelColor!);
                         });
                       },
@@ -296,16 +316,43 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             'Select a label',
             style: kNormalTextStyle(context).copyWith(
               color: kSemanticRed,
-              fontWeight: FontWeight.bold,
             ),
           ) : const SizedBox(),
           SizedBox(height: 10.h),
 
-          // TODO: Priority
+          DropDownFormField(
+            value: selectedPriority, 
+            items: Priority.values.map(
+              (priority) => DropdownMenuItem(
+                value: priorityValues[priority],
+                child: Text(
+                  priority.name,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedPriority = value;
+              });
+
+              logger(selectedPriority!);
+            },
+            labelText: 'Select Priority',
+            prefixIcon: Icons.priority_high_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ),
       
           NormalTextFieldNoPrefixIcon(
-            hintText: 'Enter description',
             labelText: 'Description',
+            hintText: 'Enter description',
             onChanged: (value) {
               setState(() {
                 description = value!;

@@ -283,11 +283,13 @@ class MenuButton extends StatelessWidget {
     required this.items,
     required this.icon,
     this.containerColor,
+    required this.iconColor
   });
 
   final List<MenuItem> items;
   final IconData icon;
   final Color? containerColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +307,7 @@ class MenuButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.sp)
           ),
-          icon: Icon(icon, size: 24.sp, color: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLightGrey : kNeutralDarkGrey,),
+          icon: Icon(icon, size: 24.sp, color: iconColor,),
           position: PopupMenuPosition.under,
           itemBuilder: (context) {
             return items.map(

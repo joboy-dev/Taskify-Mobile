@@ -243,8 +243,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               // logger(widget.selectedDates);
             },
           ),
-        ).animate()
-        .scale(duration: kDurationMs(300), begin: const Offset(0.7, 0.7)),
+        ).animate(effects: MyEffects.fadeSlide()),
         SizedBox(height: 20.h),
 
         widget.selectedDates.isEmpty 
@@ -268,7 +267,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           'Start and end dates cannot be the same',
           style: kNormalTextStyle(context).copyWith(
             color: kSemanticRed,
-            fontWeight: FontWeight.bold,
           ),
         ) : const SizedBox(),
 

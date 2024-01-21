@@ -10,7 +10,6 @@ showSheet(BuildContext context, Widget screen, String screenTitle, {double heigh
     showDragHandle: true,
     isScrollControlled: true,
     useSafeArea: true,
-    constraints: BoxConstraints(minHeight: 500.h, maxHeight: height.h),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(40.r),
@@ -18,30 +17,36 @@ showSheet(BuildContext context, Widget screen, String screenTitle, {double heigh
       ),
     ),
     builder: (context) {
-      return Padding(
-        padding: kAppPadding(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                screenTitle,
-                style: kNormalTextStyle(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.sp
-                ),
+      return DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        expand: false,
+        snap: true,
+        snapAnimationDuration: kDurationMs(200),
+        builder: (context, scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: Padding(
+              padding: kAppPadding(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                      screenTitle,
+                      style: kNormalTextStyle(context).copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+              
+                  screen,
+                ],
               ),
             ),
-            SizedBox(height: 20.h),
-        
-            SizedBox(
-              height: (height - 120).h,
-              child: SingleChildScrollView(
-                child: screen
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       );
     },
   );

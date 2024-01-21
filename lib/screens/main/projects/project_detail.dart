@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/models/menu_item.dart';
 import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/shared/constants.dart';
-import 'package:taskify/shared/widgets/bottom_sheet.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
 
@@ -40,7 +39,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
 
       MenuItem(
         text: 'Delete project',
-        textColor: kRedColor, 
+        textColor: kSemanticRed, 
         icon: Icons.delete_outline_rounded, 
         onTap: () {
           
@@ -76,6 +75,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
                 items: items, 
                 icon: Icons.menu,
                 containerColor: Colors.transparent,
+                iconColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : kNeutralDark,
               ),
 
             ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:taskify/shared/utils/animations.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -28,6 +30,6 @@ class _SearchWidgetState extends State<SearchWidget> {
 
         
       ],
-    );
+    ).animate(effects: MyEffects.fadeSlide());
   }
 }

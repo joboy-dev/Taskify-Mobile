@@ -65,6 +65,7 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
     if (pickedMedia != null) {
       setState(() {
         mediaPath = pickedMedia!.path;
+        showImageError = false;
       });
       logger('Selected Image Path: $mediaPath');
       logger('Picked Media: $pickedMedia');
@@ -231,7 +232,6 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
             'Add members to the project',
             style: kNormalTextStyle(context).copyWith(
               color: kSemanticRed,
-              fontWeight: FontWeight.bold,
             ),
           ) : const SizedBox(),
           SizedBox(height: 10.h),
@@ -241,28 +241,6 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
             height: 250.h,
             child: const SearchWidget(), // implement just like calendar widget
           ) : const SizedBox(),
-      
-          // NormalTextFieldNoPrefixIcon(
-          //   hintText: 'Enter description',
-          //   labelText: 'Description',
-          //   onChanged: (value) {
-          //     setState(() {
-          //       description = value!;
-          //     });
-          //   }, 
-          //   enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-          //   focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-          //   errorBorderColor: kSemanticRed, 
-          //   focusedErrorBorderColor: kSemanticRed, 
-          //   errorTextStyleColor: kSemanticRed, 
-          //   iconColor: kMainColor(context), 
-          //   cursorColor: kMainColor(context),
-          //   filled: true,
-          //   fillColor: kScaffoldBgColor(context),
-          //   textInputType: TextInputType.visiblePassword,
-          //   maxLines: 5,
-          // ),
-          // SizedBox(height: 10.h),
       
           Button(
             buttonText: 'Create', 

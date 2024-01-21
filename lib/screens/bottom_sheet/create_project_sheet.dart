@@ -116,7 +116,6 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 10.h),
       
@@ -177,7 +176,6 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             'Add members to the project',
             style: kNormalTextStyle(context).copyWith(
               color: kSemanticRed,
-              fontWeight: FontWeight.bold,
             ),
           ) : const SizedBox(),
           SizedBox(height: 10.h),
@@ -267,6 +265,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
                       onTap: () {
                         setState(() {
                           selectedLabelColor = color.toString().substring(6, 16);
+                          showLabelError = false;
                           logger(selectedLabelColor!);
                         });
                       },
@@ -296,7 +295,6 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             'Select a label',
             style: kNormalTextStyle(context).copyWith(
               color: kSemanticRed,
-              fontWeight: FontWeight.bold,
             ),
           ) : const SizedBox(),
           SizedBox(height: 10.h),

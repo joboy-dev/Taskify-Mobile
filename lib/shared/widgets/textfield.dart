@@ -76,7 +76,7 @@ class NormalTextField extends StatelessWidget {
             ),
           ) : const SizedBox(),
 
-          labelText != null ? SizedBox(height: 20.h,) : const SizedBox(),
+          labelText != null ? SizedBox(height: 10.h,) : const SizedBox(),
 
           Container(
             decoration: BoxDecoration(
@@ -197,6 +197,7 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
     this.borderRadius,
     this.validator,
     this.contentPadding,
+    this.showShadow = true
   });
 
   final String? initialValue;
@@ -225,6 +226,7 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
   final int? maxLines;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
+  final bool? showShadow;
   // Function(String? newValue) onSaved;
 
   @override
@@ -243,10 +245,10 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
               fontWeight: FontWeight.bold
             ),
           ) : const SizedBox(),
-          labelText != null ? SizedBox(height: 15.h,) : const SizedBox(),
+          labelText != null ? SizedBox(height: 10.h,) : const SizedBox(),
           Container(
             decoration: BoxDecoration(
-              boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
+              boxShadow: !showShadow! ? [] : kScaffoldBgColor(context) == kNeutralDark ? [] : [
                 BoxShadow(
                   color: kNeutralLightGrey,
                   blurRadius: 8.r,
@@ -508,6 +510,137 @@ class PinField extends StatelessWidget {
       ),
       onComplete: oncomplete,
       onChange: onChange
+    );
+  }
+}
+
+
+class DropDownFormField extends StatelessWidget {
+  const DropDownFormField({
+    super.key,
+    required this.value,
+    required this.items,
+    this.labelText,
+    this.iconSize,
+    this.fontSize,
+    this.padding,
+    required this.onChanged,
+    required this.prefixIcon,
+    required this.iconColor, 
+    required this.enabledBorderColor, 
+    required this.focusedBorderColor, 
+    required this.errorBorderColor, 
+    required this.focusedErrorBorderColor, 
+    required this.errorTextStyleColor,
+    this.borderRadius,
+    this.filled,
+    this.fillColor,
+    this.showShadow=true,
+  });
+
+  final dynamic value;
+  final String? labelText;
+  final List<DropdownMenuItem> items;
+  final double? fontSize;
+  final double? iconSize;
+  final EdgeInsets? padding;
+  final IconData prefixIcon;
+  final Color iconColor;
+  final Color enabledBorderColor;
+  final Color focusedBorderColor;
+  final Color errorBorderColor;
+  final Color focusedErrorBorderColor;
+  final Color errorTextStyleColor;
+  final void Function(dynamic value)? onChanged;
+  final double? borderRadius;
+  final bool? filled;
+  final Color? fillColor;
+  final bool? showShadow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        labelText != null ? Text(
+          labelText!,
+          style: kNormalTextStyle(context).copyWith(
+            fontSize: 16.sp,
+            color: kMainColor(context),
+            fontWeight: FontWeight.bold
+          ),
+        ) : const SizedBox(),
+
+        labelText != null ? SizedBox(height: 10.h,) : const SizedBox(),
+          
+        Container(
+          decoration: BoxDecoration(
+            boxShadow: !showShadow! ? [] : kScaffoldBgColor(context) == kNeutralDark ? [] : [
+              BoxShadow(
+                color: kNeutralLightGrey,
+                blurRadius: 8.r,
+                spreadRadius: 4.r,
+                offset: const Offset(-0.5, 1.0)
+              ),
+            ]
+          ),
+          child: DropdownButtonFormField(
+            value: value,
+            items: items,
+            style: kNormalTextStyle(context).copyWith(fontSize: fontSize ?? 16.sp),
+            onChanged: onChanged,
+            dropdownColor: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 4,
+            padding: padding ?? const EdgeInsets.only(bottom: 20.0),
+            decoration: InputDecoration(
+              hintText: labelText,
+              hintStyle: kNormalTextStyle(context).copyWith(
+                color: kMainColor(context).withOpacity(0.5), 
+                fontSize: fontSize ?? 15.sp,
+                fontWeight: FontWeight.normal,
+              ),
+              prefixIcon: Padding(
+                padding: EdgeInsets.only(left: 15.r, right: 25.r),
+                child: Icon(
+                  prefixIcon,
+                  color: iconColor,
+                  size: iconSize ?? 20.r,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: enabledBorderColor, width: 1.w),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 20.r)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: focusedBorderColor, width: 1.w),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 20.r)),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: errorBorderColor, width: 1.w),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 20.r)),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: focusedErrorBorderColor, width: 1.w),
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 20.r)),
+              ),
+              errorStyle: TextStyle(
+                color: errorTextStyleColor,
+                fontSize: 17.sp,
+              ),
+              filled: filled,
+              fillColor: fillColor,
+            ),
+            validator: (value) {
+              if (value == null) {
+                return 'Make a choice';
+              } else {
+                return null;
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

@@ -70,7 +70,7 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
       showBackButton: widget.showBackButton,
       title: widget.title,
       titleFontSize: widget.titleFontSize ?? 22.sp,
-      trailing: MenuButton(items: items, icon: Icons.add,),
+      trailing: MenuButton(items: items, icon: Icons.add, iconColor: kNeutralLight,),
       screen: Column(
         children: [
           widget.showAppbar! ? const SizedBox() : Row(
@@ -88,7 +88,7 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
                   Icon(widget.icon, color: kMainColor(context), size: 24.sp,)
                 ],
               ),
-              MenuButton(items: items, icon: Icons.add,),
+              MenuButton(items: items, icon: Icons.add, iconColor: kNeutralLight,),
             ],
           ),
           widget.showAppbar! ? const SizedBox() : SizedBox(height: 20.h),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/main/projects/project_detail.dart';
+import 'package:taskify/screens/main/tasks/task_detail.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/navigator.dart';
 import 'package:taskify/shared/widgets/chart.dart';
@@ -176,81 +177,87 @@ class MiniTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: kScaffoldBgColor(context),
-      surfaceTintColor: Colors.transparent,
-      elevation: kScaffoldBgColor(context) == kNeutralDark ? 0.0 : 2.r,
-      shadowColor: kNeutralLightGrey,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: kNeutralLight,
-          width: 1.w,
+    return InkWell(
+      splashColor: Colors.transparent,
+      onTap: () {
+        navigatorPush(context, TaskDetail(taskId: taskId));
+      },
+      child: Card(
+        color: kScaffoldBgColor(context),
+        surfaceTintColor: Colors.transparent,
+        elevation: kScaffoldBgColor(context) == kNeutralDark ? 0.0 : 2.r,
+        shadowColor: kNeutralLightGrey,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: kNeutralLight,
+            width: 1.w,
+          ),
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child:  Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundColor: kNeutralLightGrey,
-              radius: 25.r,
-              child: Center(
-                child: Icon(Icons.task_alt, color: kNeutralDark, size: 30.w,),
+        child: Padding(
+          padding: EdgeInsets.all(16.r),
+          child:  Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: kNeutralLightGrey,
+                radius: 25.r,
+                child: Center(
+                  child: Icon(Icons.task_alt, color: kNeutralDark, size: 30.w,),
+                ),
               ),
-            ),
-            SizedBox(width: 10.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  taskName,
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 5.h),
-
-                showAssigned! ? Row(
-                  children: [
-                    Text(
-                      'Assigned to: ',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp
-                      ),
+              SizedBox(width: 10.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    taskName,
+                    style: kNormalTextStyle(context).copyWith(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Member name',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp,
-                        color: kSecondaryColor
+                  ),
+                  SizedBox(height: 5.h),
+      
+                  showAssigned! ? Row(
+                    children: [
+                      Text(
+                        'Assigned to: ',
+                        style: kSecondaryNormalTextStyle(context).copyWith(
+                          fontSize: 14.sp
+                        ),
                       ),
-                    )
-                  ],
-                ) : const SizedBox(),
-                SizedBox(height: 5.h),
-
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Deadline: $endDate',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp
-                      ),
-                    )
-                  ],
-                ),
-                
-              ],
-            )
-          ],
-        )
+                      SizedBox(width: 5.w),
+                      Text(
+                        'Member name',
+                        style: kSecondaryNormalTextStyle(context).copyWith(
+                          fontSize: 14.sp,
+                          color: kSecondaryColor
+                        ),
+                      )
+                    ],
+                  ) : const SizedBox(),
+                  SizedBox(height: 5.h),
+      
+                  Row(
+                    children: [
+                      Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
+                      SizedBox(width: 5.w),
+                      Text(
+                        'Deadline: $endDate',
+                        style: kSecondaryNormalTextStyle(context).copyWith(
+                          fontSize: 14.sp
+                        ),
+                      )
+                    ],
+                  ),
+                  
+                ],
+              )
+            ],
+          )
+        ),
       ),
     );
   }
@@ -273,100 +280,106 @@ class MainTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: kScaffoldBgColor(context),
-      surfaceTintColor: Colors.transparent,
-      elevation: kScaffoldBgColor(context) == kNeutralDark ? 0.0 : 2.r,
-      shadowColor: kNeutralLightGrey,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: kNeutralLight,
-          width: 1.w,
+    return InkWell(
+      splashColor: Colors.transparent,
+      onTap: () {
+        navigatorPush(context, TaskDetail(taskId: taskId));
+      },
+      child: Card(
+        color: kScaffoldBgColor(context),
+        surfaceTintColor: Colors.transparent,
+        elevation: kScaffoldBgColor(context) == kNeutralDark ? 0.0 : 2.r,
+        shadowColor: kNeutralLightGrey,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: kNeutralLight,
+            width: 1.w,
+          ),
+          borderRadius: BorderRadius.circular(16.r),
         ),
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 12.r),
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: kNeutralLightGrey,
-                  radius: 12.r,
-                  child: Center(
-                    child: Icon(Icons.task_alt, color: kNeutralDark, size: 15.w,),
-                  ),
-                ),
-                SizedBox(width: 5.w),
-                Text(
-                  taskName,
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.timer_sharp, size: 14.w, color: kPrimaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Deadline:',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        color: kPrimaryColor
-                      ),
-                    )
-                  ],
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(left: 20.r),
-                  child: Text(
-                    endDate,
-                    style: kSecondaryNormalTextStyle(context).copyWith(
-                      fontSize: 12.sp,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 12.r),
+          child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: kNeutralLightGrey,
+                    radius: 12.r,
+                    child: Center(
+                      child: Icon(Icons.task_alt, color: kNeutralDark, size: 15.w,),
                     ),
                   ),
-                ),
-                SizedBox(height: 5.h),
-
-                Row(
-                  children: [
-                    Icon(Icons.priority_high_rounded, size: 14.w, color: kSecondaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Priority:',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        color: kSecondaryColor
-                      ),
-                    )
-                  ],
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(left: 20.r),
-                  child: Text(
-                    priority,
-                    style: kSecondaryNormalTextStyle(context).copyWith(
-                      fontSize: 12.sp,
+                  SizedBox(width: 5.w),
+                  Text(
+                    taskName,
+                    style: kNormalTextStyle(context).copyWith(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
-        )
+                ],
+              ),
+              SizedBox(height: 10.w),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.timer_sharp, size: 14.w, color: kPrimaryColor),
+                      SizedBox(width: 5.w),
+                      Text(
+                        'Deadline:',
+                        style: kSecondaryNormalTextStyle(context).copyWith(
+                          fontSize: 12.sp,
+                          color: kPrimaryColor
+                        ),
+                      )
+                    ],
+                  ),
+      
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.r),
+                    child: Text(
+                      endDate,
+                      style: kSecondaryNormalTextStyle(context).copyWith(
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
+      
+                  Row(
+                    children: [
+                      Icon(Icons.priority_high_rounded, size: 14.w, color: kSecondaryColor),
+                      SizedBox(width: 5.w),
+                      Text(
+                        'Priority:',
+                        style: kSecondaryNormalTextStyle(context).copyWith(
+                          fontSize: 12.sp,
+                          color: kSecondaryColor
+                        ),
+                      )
+                    ],
+                  ),
+      
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.r),
+                    child: Text(
+                      priority,
+                      style: kSecondaryNormalTextStyle(context).copyWith(
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ),
       ),
     );
   }
@@ -392,8 +405,9 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: () {
-        navigatorPush(context, const ProjectDetailScreen());
+        navigatorPush(context, TaskDetail(taskId: taskId));
       },
       child: Card(
         color: kScaffoldBgColor(context),
