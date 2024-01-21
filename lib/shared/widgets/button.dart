@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskify/models/menu_item.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/navigator.dart';
 
@@ -279,22 +280,54 @@ class ButtonWithIcon extends StatelessWidget {
 class MenuButton extends StatelessWidget {
   const MenuButton({
     super.key,
+    required this.items,
+    required this.icon,
+    this.containerColor,
   });
+
+  final List<MenuItem> items;
+  final IconData icon;
+  final Color? containerColor;
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        
-      }, 
-      icon: Icon(Icons.add, size: 20.w,),
-      color: kNeutralLight,
-      style: IconButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.r))
+    return Container(
+      width:  45.w,
+      height: 40.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.r),
+        color: containerColor ?? (kScaffoldBgColor(context) == kNeutralDark ? kSecondaryColor : kPrimaryColor),
+      ),
+      child: Center(
+        child: PopupMenuButton(
+          surfaceTintColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralDarkGrey : kNeutralLightGrey,
+          color: kScaffoldBgColor(context) == kNeutralDark ? kNeutralDarkGrey : kNeutralLightGrey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.sp)
+          ),
+          icon: Icon(icon, size: 24.sp, color: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLightGrey : kNeutralDarkGrey,),
+          position: PopupMenuPosition.under,
+          itemBuilder: (context) {
+            return items.map(
+              (item) => PopupMenuItem(
+                padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 12.r),
+                onTap: item.onTap,
+                child: Row(
+                  children: [
+                    Icon(item.icon, color: item.textColor, size: 24.sp,),
+                    SizedBox(width: 10.w),
+                    Text(
+                      item.text,
+                      style: kNormalTextStyle(context).copyWith(
+                        color: item.textColor,
+                      ),
+                    )
+                  ],
+                )
+              )
+            ).toList();
+          },
         ),
-        fixedSize: Size(45.w, 40.h),
-        backgroundColor: kScaffoldBgColor(context) == kNeutralDark ? kSecondaryColor : kPrimaryColor,
       ),
     );
   }

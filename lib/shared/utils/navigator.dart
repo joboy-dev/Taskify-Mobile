@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-navigatorPop(BuildContext context) {
-  Navigator.of(context).pop();
+navigatorPop(BuildContext context, {dynamic result}) {
+  Navigator.of(context).pop(result);
 }
 
 navigatorPushReplacement(BuildContext context, Widget screen, {double dx=0.0, double dy=1.0}) {

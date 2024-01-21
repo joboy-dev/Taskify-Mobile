@@ -52,102 +52,117 @@ class NormalTextField extends StatelessWidget {
   final Color iconColor;
   final Color cursorColor;
   final IconData? prefixIcon;
-  // final String? suffixIcon;
   final IconData? suffixIcon;
   final double? fontSize;
   final TextInputType? textInputType;
   final int? maxLines;
   final double? borderRadius;
   final EdgeInsetsGeometry? contentPadding;
-  // Function(String? newValue) onSaved;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.r),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
-            BoxShadow(
-              color: kNeutralLightGrey,
-              blurRadius: 8.r,
-              spreadRadius: 4.r,
-              offset: const Offset(-0.5, 1.0)
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          labelText != null ? Text(
+            labelText!,
+            style: kNormalTextStyle(context).copyWith(
+              fontSize: 16.sp,
+              color: kMainColor(context),
+              fontWeight: FontWeight.bold
             ),
-          ]
-        ),
-        child: TextFormField(
-          readOnly: readonly ?? false,
-          initialValue: initialValue,
-          minLines: 1,
-          maxLines: maxLines ?? 1,
-          style: kNormalTextStyle(context).copyWith(
-            fontSize: fontSize ?? 15.sp, 
-            color: textColor ?? kMainColor(context),
-          ),
-          cursorColor: cursorColor,
-          obscureText: obscureText,
-          keyboardType: textInputType ?? TextInputType.text,
-          decoration: InputDecoration(
-            contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
-            hintText: hintText,
-            filled: filled,
-            fillColor: fillColor,
-            hintStyle: kTextFieldTextStyle(context).copyWith(
-              color: kMainColor(context).withOpacity(0.5),
+          ) : const SizedBox(),
+
+          labelText != null ? SizedBox(height: 20.h,) : const SizedBox(),
+
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
+                BoxShadow(
+                  color: kNeutralLightGrey,
+                  blurRadius: 8.r,
+                  spreadRadius: 4.r,
+                  offset: const Offset(-0.5, 1.0)
+                ),
+              ]
             ),
-            prefixIcon: prefixIcon != null ? Padding(
-              padding: EdgeInsets.only(right: 16.r, left: 24.r),
-              child: Icon(
-                prefixIcon,
-                color: iconColor,
-                size: 24.r,
+            child: TextFormField(
+              readOnly: readonly ?? false,
+              initialValue: initialValue,
+              minLines: 1,
+              maxLines: maxLines ?? 1,
+              style: kNormalTextStyle(context).copyWith(
+                fontSize: fontSize ?? 15.sp, 
+                color: textColor ?? kMainColor(context),
               ),
-            ) : const SizedBox(width: 0,),
-            suffixIcon: GestureDetector(
-              onTap: suffixIconOTap ?? () {},
-              child: Padding(
-                padding: EdgeInsets.only(right: 16.r),
-                child: Icon(suffixIcon, color: kMainColor(context), size: 24.r,),
+              cursorColor: cursorColor,
+              obscureText: obscureText,
+              keyboardType: textInputType ?? TextInputType.text,
+              decoration: InputDecoration(
+                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
+                hintText: hintText,
+                filled: filled,
+                fillColor: fillColor,
+                hintStyle: kTextFieldTextStyle(context).copyWith(
+                  color: kMainColor(context).withOpacity(0.5),
+                ),
+                prefixIcon: prefixIcon != null ? Padding(
+                  padding: EdgeInsets.only(right: 16.r, left: 24.r),
+                  child: Icon(
+                    prefixIcon,
+                    color: iconColor,
+                    size: 24.r,
+                  ),
+                ) : const SizedBox(width: 0,),
+                suffixIcon: GestureDetector(
+                  onTap: suffixIconOTap ?? () {},
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 16.r),
+                    child: Icon(suffixIcon, color: kMainColor(context), size: 24.r,),
+                  ),
+                ),
+                // labelText: labelText ?? hintText,
+                // labelStyle: TextStyle(
+                //   color: kFontTheme(context).withOpacity(0.5),
+                //   fontWeight: FontWeight.normal,
+                //   fontSize: 15.sp,
+                // ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: enabledBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: focusedBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: errorBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: focusedErrorBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorStyle: TextStyle(
+                  color: errorTextStyleColor,
+                  fontSize: 15.sp,
+                ),
               ),
-            ),
-            // labelText: labelText ?? hintText,
-            // labelStyle: TextStyle(
-            //   color: kFontTheme(context).withOpacity(0.5),
-            //   fontWeight: FontWeight.normal,
-            //   fontSize: 15.sp,
-            // ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: enabledBorderColor, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: focusedBorderColor, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: errorBorderColor, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: focusedErrorBorderColor, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            errorStyle: TextStyle(
-              color: errorTextStyleColor,
-              fontSize: 15.sp,
+              // onSaved: onSaved,
+              onChanged: onChanged,
+              validator: validator ??  (value) {
+                if (value!.isEmpty ) {
+                  return 'This field cannot be empty';
+                } else {
+                  return null;
+                }
+              },
             ),
           ),
-          // onSaved: onSaved,
-          onChanged: onChanged,
-          validator: validator ??  (value) {
-            if (value!.isEmpty ) {
-              return 'This field cannot be empty';
-            } else {
-              return null;
-            }
-          },
-        ),
+        ],
       ),
     );
   }
@@ -224,10 +239,11 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
             labelText!,
             style: kNormalTextStyle(context).copyWith(
               fontSize: 16.sp,
-              color: kMainColor(context).withOpacity(0.5),
+              color: kMainColor(context),
+              fontWeight: FontWeight.bold
             ),
           ) : const SizedBox(),
-          SizedBox(height: 5.h),
+          labelText != null ? SizedBox(height: 15.h,) : const SizedBox(),
           Container(
             decoration: BoxDecoration(
               boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
@@ -252,7 +268,7 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
               obscureText: obscureText,
               keyboardType: textInputType ?? TextInputType.text,
               decoration: InputDecoration(
-                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
+                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 24.sp, vertical: 16.sp),
                 hintText: hintText,
                 filled: filled,
                 fillColor: fillColor,
@@ -264,7 +280,6 @@ class NormalTextFieldNoPrefixIcon extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.only(right: 16.r),
                     child: Icon(suffixIcon, color: kMainColor(context), size: 16.sp,),
-                    // child: Iconify(suffixIcon!, color: kMainColor(context), size: 16.sp,),
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
@@ -493,6 +508,38 @@ class PinField extends StatelessWidget {
       ),
       onComplete: oncomplete,
       onChange: onChange
+    );
+  }
+}
+
+
+class FieldSection extends StatelessWidget {
+  const FieldSection({
+    super.key,
+    required this.text,
+    required this.child,
+  });
+
+  final String text;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          text,
+          style: kNormalTextStyle(context).copyWith(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 10.h),
+
+        child,
+        SizedBox(height: 20.h),
+      ],
     );
   }
 }

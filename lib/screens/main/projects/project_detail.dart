@@ -1,8 +1,11 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskify/models/menu_item.dart';
 import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/shared/constants.dart';
+import 'package:taskify/shared/widgets/bottom_sheet.dart';
+import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
@@ -25,6 +28,26 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
 
   @override
   Widget build(BuildContext context) {
+    List<MenuItem> items = [
+      MenuItem(
+        text: 'Check done', 
+        textColor: kMainColor(context),
+        icon: Icons.task_alt_rounded, 
+        onTap: () {
+
+        },
+      ),
+
+      MenuItem(
+        text: 'Delete project',
+        textColor: kRedColor, 
+        icon: Icons.delete_outline_rounded, 
+        onTap: () {
+          
+        },
+      ),
+    ];
+    
     return BaseNavScreen(
       showAppbar: true,
       showBackButton: true,
@@ -49,12 +72,12 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
                 ],
               ),
 
-              IconButton(
-                onPressed: () {
-                  
-                }, 
-                icon: Icon(Icons.menu_outlined, size: 24.sp, color: kMainColor(context),)
+              MenuButton(
+                items: items, 
+                icon: Icons.menu,
+                containerColor: Colors.transparent,
               ),
+
             ],
           ),
           SizedBox(height: 20.h),
