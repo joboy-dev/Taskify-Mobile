@@ -250,7 +250,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
           ) : const SizedBox(),
       
           FieldSection(
-            text: 'Select Label', 
+            text: 'Select label', 
             child: SizedBox(
               height: 50.h,
               width: double.infinity,

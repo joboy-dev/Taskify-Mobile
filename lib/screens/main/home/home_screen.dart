@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             },
           ),
 
-          SizedBox(
+          searchTerm.isEmpty ? SizedBox(
             height: 430.h,
             width: double.infinity,
             child: DefaultTabController(
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               )
             ),
-          ),
+          ) : const SizedBox(),
         ],
       ),
     );

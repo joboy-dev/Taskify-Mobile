@@ -35,6 +35,7 @@ class ProjectCard extends StatelessWidget {
       onTap: () {
         navigatorPush(context, const ProjectDetailScreen());
       },
+      borderRadius: BorderRadius.circular(16.r),
       child: Card(
         color: kScaffoldBgColor(context),
         surfaceTintColor: Colors.transparent,
@@ -182,6 +183,7 @@ class MiniTaskCard extends StatelessWidget {
       onTap: () {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
+      borderRadius: BorderRadius.circular(16.r),
       child: Card(
         color: kScaffoldBgColor(context),
         surfaceTintColor: Colors.transparent,
@@ -285,6 +287,7 @@ class MainTaskCard extends StatelessWidget {
       onTap: () {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
+      borderRadius: BorderRadius.circular(16.r),
       child: Card(
         color: kScaffoldBgColor(context),
         surfaceTintColor: Colors.transparent,
@@ -409,6 +412,7 @@ class TaskCard extends StatelessWidget {
       onTap: () {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
+      borderRadius: BorderRadius.circular(16.r),
       child: Card(
         color: kScaffoldBgColor(context),
         surfaceTintColor: Colors.transparent,

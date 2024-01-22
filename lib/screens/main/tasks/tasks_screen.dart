@@ -50,7 +50,7 @@ class _TasksScreenState extends State<TasksScreen> with TickerProviderStateMixin
             },
           ),
 
-          SizedBox(
+          searchTerm.isEmpty ? SizedBox(
             height: 500.h,
             width: double.infinity,
             child: DefaultTabController(
@@ -92,7 +92,7 @@ class _TasksScreenState extends State<TasksScreen> with TickerProviderStateMixin
                 ),
               )
             ),
-          ),
+          ) : const SizedBox(),
         ],
       ),
     );

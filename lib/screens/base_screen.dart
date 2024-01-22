@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/widgets/custom_appbar.dart';
 
@@ -98,7 +99,7 @@ class _BaseScreenUnscrollableState extends State<BaseScreenUnscrollable> {
         backgroundColor: kScaffoldBgColor(context),
         trailing: widget.trailing,
         bottom: widget.tabBar,
-        height: widget.appbarHeight,
+        height: widget.appbarHeight ?? (kHeightWidth(context).height > 1000 ? 55.h : 40.h),
         fontSize: widget.titleFontSize,
       ): null,
       body: Padding(

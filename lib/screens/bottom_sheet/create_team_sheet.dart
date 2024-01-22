@@ -132,6 +132,7 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
                   onTap: () {
                     pickImage(ImageSource.gallery);
                   },
+                  borderRadius: BorderRadius.circular(40.r),
                   child: CircleAvatar(
                     backgroundColor: kNeutralDarkGrey,
                     radius: 40.r,

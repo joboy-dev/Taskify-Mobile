@@ -11,9 +11,10 @@ import 'package:taskify/shared/widgets/snackbar.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key, required this.userEmail});
+  const ResetPasswordScreen({super.key, required this.userEmail, required this.showOldPasswordField});
 
   final String userEmail;
+  final bool showOldPasswordField;
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -24,9 +25,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   String password = '';
   String password2 = '';
+  String password3 = '';
 
   bool obscureText = true;
   bool obscureText2 = true;
+  bool obscureText3 = true;
 
   processForm() {
     if (_formKey.currentState!.validate()) {
@@ -57,7 +60,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
                 SizedBox(height: 20.w),
                 Text(
-                  'Reset Password',
+                 widget.showOldPasswordField ?  'Change Password' : 'Reset Password',
                   style: kAppbarTextStyle(context),
                 ),
               ],
@@ -67,6 +70,40 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
             Column(
               children: [
+                widget.showOldPasswordField ? NormalTextField(
+                  hintText: 'Old Password',
+                  onChanged: (value) {
+                    setState(() {
+                      password3 = value!;
+                    });
+                  }, 
+                  enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+                  focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+                  errorBorderColor: kSemanticRed, 
+                  focusedErrorBorderColor: kSemanticRed, 
+                  errorTextStyleColor: kSemanticRed, 
+                  prefixIcon: Icons.lock_outline,
+                  iconColor: kMainColor(context), 
+                  cursorColor: kMainColor(context),
+                  filled: true,
+                  fillColor: kScaffoldBgColor(context),
+                  obscureText: obscureText3,
+                  suffixIcon: obscureText3 ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                  suffixIconOTap: () {
+                    setState(() {
+                      obscureText3 = !obscureText3;
+                    });
+                  },
+                  textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    return RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                            .hasMatch(value!)
+                        ? null
+                        : 'Your password should have an uppercase letter, lowercase letter, a symbol and number';
+                  },
+                ) : const SizedBox(),
+
                 NormalTextField(
                   hintText: 'Password',
                   onChanged: (value) {

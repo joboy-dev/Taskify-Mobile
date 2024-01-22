@@ -129,8 +129,8 @@ class DoubleButton extends StatelessWidget {
             onPressed: () {
               navigatorPop(context);
             },
-            buttonColor: kRedColor,
-            textColor: kSecondaryColor,
+            buttonColor: kSemanticRed,
+            textColor: kNeutralLight,
             inactive: false,
           ),
         ),
@@ -141,7 +141,7 @@ class DoubleButton extends StatelessWidget {
             onPressed: button2onPressed,
             buttonColor: button2Color,
             inactive: inactiveButton,
-            textColor: kSecondaryColor,
+            textColor: kNeutralLight,
           ),
         ),
       ],

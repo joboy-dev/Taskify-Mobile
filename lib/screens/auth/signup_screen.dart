@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/auth/signin_screen.dart';
+import 'package:taskify/screens/auth/subscription_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/animations.dart';
 import 'package:taskify/shared/utils/navigator.dart';
-import 'package:taskify/shared/widgets/bottom_navbar.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/snackbar.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   processForm() {
     if (_formKey.currentState!.validate()) {
       if (password == password2) {
-        navigatorPushReplacement(context, const BottomNavbar());
+        navigatorPush(context, const SubscriptionScreen());
       } else {
         showSnackbar(context, 'Passwords do not match.');
       }

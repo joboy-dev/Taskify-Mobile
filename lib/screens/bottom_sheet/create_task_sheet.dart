@@ -17,9 +17,9 @@ enum Priority {Low, Medium, High}
 
 // Based on backend values for priority
 Map priorityValues = {
-  Priority.Low: 'L',
-  Priority.Medium: 'M',
-  Priority.High: 'H'
+  Priority.Low: 'low',
+  Priority.Medium: 'medium',
+  Priority.High: 'high'
 };
 
 // Map priorityValues = {
@@ -60,6 +60,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
   List selectedMembers = [];
 
   String? selectedPriority;
+  String? selectedCategory;
 
   // Error texts
   bool showCalendarError = false;
@@ -271,7 +272,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
           ) : const SizedBox(),
       
           FieldSection(
-            text: 'Select Label', 
+            text: 'Select label', 
             child: SizedBox(
               height: 50.h,
               width: double.infinity,
@@ -338,8 +339,39 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
               logger(selectedPriority!);
             },
-            labelText: 'Select Priority',
+            labelText: 'Select priority',
             prefixIcon: Icons.priority_high_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ),
+
+          
+          DropDownFormField(
+            value: selectedPriority, 
+            items: Priority.values.map(
+              (priority) => DropdownMenuItem(
+                value: priorityValues[priority],
+                child: Text(
+                  priority.name,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedPriority = value;
+              });
+
+              logger(selectedPriority!);
+            },
+            labelText: 'Select category',
+            prefixIcon: Icons.category_outlined, 
             enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
             focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
             errorBorderColor: kSemanticRed, 

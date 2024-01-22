@@ -38,7 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     if (widget.otp.toString() == otpCode) {
       showSnackbar(context, 'The OTP entered is correct. Proceed to reset your password');
-      navigatorPushReplacement(context, ResetPasswordScreen(userEmail: widget.email,));
+      navigatorPushReplacement(context, ResetPasswordScreen(userEmail: widget.email, showOldPasswordField: false,));
     } else {
       showSnackbar(context, 'The OTP entered is not valid');
     }

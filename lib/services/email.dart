@@ -22,7 +22,7 @@ class EmailService {
     final message = Message()
     ..from=Address(username, 'Taskify')
     ..recipients=[email]
-    ..subject='Feedback from Time Guard Application'
+    ..subject='Taskify OTP'
     ..text='Your OTP is $otp';
 
     try {
@@ -33,7 +33,7 @@ class EmailService {
       showSnackbar(context, 'An error occured while sending feedback');
       return 0;
     } catch (e) {
-      showSnackbar(context, 'An error occured');
+      showSnackbar(context, 'An error occured. Check your internet connection.');
       logger(e.toString());
       return 0;
     }

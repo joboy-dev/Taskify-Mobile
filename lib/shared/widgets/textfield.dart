@@ -358,89 +358,105 @@ class EmailTextField extends StatelessWidget {
   final Color errorTextStyleColor;
   final Color cursorColor;
   final double? borderRadius;
-final EdgeInsetsGeometry? contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
   final Function(String? value) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 16.r),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
-            BoxShadow(
-              color: kNeutralLightGrey,
-              blurRadius: 8.r,
-              spreadRadius: 4.r,
-              offset: const Offset(-0.5, 1.0)
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          labelText != null ? Text(
+            labelText!,
+            style: kNormalTextStyle(context).copyWith(
+              fontSize: 16.sp,
+              color: kMainColor(context),
+              fontWeight: FontWeight.bold
             ),
-          ]
-        ),
-        child: TextFormField(
-          readOnly: readOnly ?? false,
-          initialValue: initialValue,
-          cursorColor: cursorColor,
-          keyboardType: TextInputType.emailAddress,
-          style: kTextFieldTextStyle(context).copyWith(
-            fontSize: 15.sp, 
-            color: kMainColor(context),
-          ),
-          decoration: InputDecoration(
-            hintText: hintText ?? 'Email',
-            hintStyle: kTextFieldTextStyle(context).copyWith(
-              color: kMainColor(context).withOpacity(0.5),
+          ) : const SizedBox(),
+          labelText != null ? SizedBox(height: 10.h,) : const SizedBox(),
+
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
+                BoxShadow(
+                  color: kNeutralLightGrey,
+                  blurRadius: 8.r,
+                  spreadRadius: 4.r,
+                  offset: const Offset(-0.5, 1.0)
+                ),
+              ]
             ),
-            contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
-            filled: filled,
-            fillColor: fillColor,
-            // labelText: labelText ?? 'Email',
-            // labelStyle: TextStyle(
-            //   color: kMainColor(context).withOpacity(0.5),
-            //   fontWeight: FontWeight.normal,
-            //   fontSize: 15.sp,
-            // ),
-            prefixIcon: Padding(
-              padding: EdgeInsets.only(right: 16.r, left: 24.r),
-              child: Icon(
-                Icons.email_outlined,
-                color: iconColor,
-                size: 24.r,
+            child: TextFormField(
+              readOnly: readOnly ?? false,
+              initialValue: initialValue,
+              cursorColor: cursorColor,
+              keyboardType: TextInputType.emailAddress,
+              style: kTextFieldTextStyle(context).copyWith(
+                fontSize: 15.sp, 
+                color: kMainColor(context),
               ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: enabledBorderColor ?? Colors.transparent, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: focusedBorderColor ?? Colors.transparent, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: errorBorderColor ?? Colors.transparent, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: focusedErrorBorderColor ?? Colors.transparent, width: 1.w),
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
-            ),
-            errorStyle: TextStyle(
-              color: errorTextStyleColor,
-              fontSize: 15.sp,
+              decoration: InputDecoration(
+                hintText: hintText ?? 'Email',
+                hintStyle: kTextFieldTextStyle(context).copyWith(
+                  color: kMainColor(context).withOpacity(0.5),
+                ),
+                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
+                filled: filled,
+                fillColor: fillColor,
+                // labelText: labelText ?? 'Email',
+                // labelStyle: TextStyle(
+                //   color: kMainColor(context).withOpacity(0.5),
+                //   fontWeight: FontWeight.normal,
+                //   fontSize: 15.sp,
+                // ),
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(right: 16.r, left: 24.r),
+                  child: Icon(
+                    Icons.email_outlined,
+                    color: iconColor,
+                    size: 24.r,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: enabledBorderColor ?? Colors.transparent, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: focusedBorderColor ?? Colors.transparent, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: errorBorderColor ?? Colors.transparent, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: focusedErrorBorderColor ?? Colors.transparent, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorStyle: TextStyle(
+                  color: errorTextStyleColor,
+                  fontSize: 15.sp,
+                ),
+              ),
+              onChanged: onChanged,
+              validator: (value) {
+                return RegExp(
+                            r"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value!)
+                    ? null
+                    : 'Please enter a valid email';
+              },
             ),
           ),
-          onChanged: onChanged,
-          validator: (value) {
-            return RegExp(
-                        r"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    .hasMatch(value!)
-                ? null
-                : 'Please enter a valid email';
-          },
-        ),
+        ],
       ),
     );
   }

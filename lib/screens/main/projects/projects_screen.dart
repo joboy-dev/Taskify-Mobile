@@ -49,7 +49,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with TickerProviderStat
             },
           ),
 
-          SizedBox(
+          searchTerm.isEmpty ? SizedBox(
             height: 500.h,
             width: double.infinity,
             child: DefaultTabController(
@@ -91,7 +91,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> with TickerProviderStat
                 ),
               )
             ),
-          ),
+          ) : const SizedBox(),
         ],
       ),
     );
