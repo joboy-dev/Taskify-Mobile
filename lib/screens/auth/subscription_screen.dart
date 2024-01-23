@@ -85,7 +85,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                               plan,
                               style: kNormalTextStyle(context).copyWith(
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold,
+                                color: selectedPlan?.toLowerCase() == plan.toLowerCase() ? kNeutralLight : kMainColor(context)
                               ),
                             )
                           ],
