@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/auth/signin_screen.dart';
-import 'package:taskify/screens/auth/subscription_screen.dart';
+import 'package:taskify/screens/auth/signup/other_details_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/animations.dart';
@@ -11,14 +11,14 @@ import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/snackbar.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class EmailPasswordScreen extends StatefulWidget {
+  const EmailPasswordScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<EmailPasswordScreen> createState() => _EmailPasswordScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _EmailPasswordScreenState extends State<EmailPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String email = '';
@@ -31,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   processForm() {
     if (_formKey.currentState!.validate()) {
       if (password == password2) {
-        navigatorPush(context, const SubscriptionScreen());
+        navigatorPush(context, OtherFieldsScreen(email: email, password: password,));
       } else {
         showSnackbar(context, 'Passwords do not match.');
       }
@@ -164,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         
             Button(
               width: double.infinity,
-              buttonText: 'Sign Up', 
+              buttonText: 'Continue', 
               onPressed: processForm, 
               buttonColor: kPrimaryColor, 
               textColor: kNeutralLight,

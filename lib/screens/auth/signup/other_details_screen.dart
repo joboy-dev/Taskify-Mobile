@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:taskify/screens/auth/reset_password_screen.dart';
+import 'package:taskify/screens/auth/subscription_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/logger.dart';
@@ -11,14 +11,17 @@ import 'package:taskify/shared/utils/navigator.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+class OtherFieldsScreen extends StatefulWidget {
+  const OtherFieldsScreen({super.key, required this.email, required this.password});
+
+  final String email;
+  final String password;
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<OtherFieldsScreen> createState() => _OtherFieldsScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _OtherFieldsScreenState extends State<OtherFieldsScreen> {
   final _formKey = GlobalKey<FormState>();
   bool showImageError= false;
 
@@ -28,7 +31,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   String firstName = '';
   String lastName = '';
-  String email = '';
   String phoneNumber = '';
 
   /// Function to pick an image
@@ -70,9 +72,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   processForm() {
-    if (_formKey.currentState!.validate() || validateNonTextFields()) {
+    
+    if (_formKey.currentState!.validate() && validateNonTextFields()) {
       if (!showImageError) {
-        navigatorPop(context);
+        navigatorPush(context, SubscriptionScreen(
+          email: widget.email,
+          password: widget.password,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phoneNumber,
+        ));
       }
     }
     
@@ -83,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return BaseScreen(
       showAppBar: true,
       showBackButton: true,
-      title: 'Edit Profile',
+      title: '',
       titleFontSize: 16.sp,
       screen: Form(
         key: _formKey,
@@ -159,25 +168,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               fillColor: kScaffoldBgColor(context),
             ),
         
-            EmailTextField(
-              labelText: 'Email',
-              onChanged: (value) {
-                setState(() {
-                  email = value!;
-                });
-              }, 
-              enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-              focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-              errorBorderColor: kSemanticRed, 
-              focusedErrorBorderColor: kSemanticRed, 
-              errorTextStyleColor: kSemanticRed, 
-              iconColor: kMainColor(context), 
-              cursorColor: kMainColor(context),
-              filled: true,
-              fillColor: kScaffoldBgColor(context),
-            ),
-        
-        
             NormalTextFieldWithLength(
               hintText: 'Phone number',
               labelText: 'Phone number',
@@ -206,34 +196,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }
               },
             ),
-        
-            Text(
-              'Password',
-              style: kNormalTextStyle(context).copyWith(
-                fontSize: 16.sp,
-                color: kMainColor(context),
-                fontWeight: FontWeight.bold
-              ),
-            ),
-        
-            TextButton(
-              onPressed: () {
-                navigatorPush(context, ResetPasswordScreen(userEmail: email, showOldPasswordField: true,));
-              }, 
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(0),
-              ),
-              child: Text(
-                'Change Password',
-                style: kNormalTextStyle(context).copyWith(
-                  color: kPrimaryColor,
-                ),
-              ),
-            ),
             SizedBox(height: 30.h),
         
             Button(
-              buttonText: 'Save Changes',
+              buttonText: 'Continue',
               buttonColor: kPrimaryColor,
               inactive: false,
               width: double.infinity,

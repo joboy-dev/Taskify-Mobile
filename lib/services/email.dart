@@ -30,10 +30,10 @@ class EmailService {
       showSnackbar(context, 'OTP sent successfully. Check your email.');
       return otp;
     } on MailerException {
-      showSnackbar(context, 'An error occured while sending feedback');
+      showSnackbar(context, 'An error occured while sending OTP. Try again later.');
       return 0;
     } catch (e) {
-      showSnackbar(context, 'An error occured. Check your internet connection.');
+      showSnackbar(context, 'An error occured. Try again later or check your internet connection.');
       logger(e.toString());
       return 0;
     }

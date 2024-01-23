@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/auth/forgot_password_screen.dart';
-import 'package:taskify/screens/auth/signup_screen.dart';
+import 'package:taskify/screens/auth/signup/email_password_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/animations.dart';
@@ -155,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> {
               firstText: 'Don\'t have an account? ', 
               secondText: 'Sign Up', 
               onTap: () {
-                navigatorPushReplacement(context, const SignUpScreen());
+                navigatorPushReplacement(context, const EmailPasswordScreen());
               },
             ).animate(effects: MyEffects.fadeSlide(), delay: kDurationMs(2500))
           ]

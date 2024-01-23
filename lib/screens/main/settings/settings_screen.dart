@@ -112,57 +112,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ), // end details
               SizedBox(height: 20.h),
           
-              SettingsSection(
-                sectionName: 'Workspace',
-                child: InkWell(
-                  onTap: () {
+              // SettingsSection(
+              //   sectionName: 'Workspace',
+              //   child: InkWell(
+              //     onTap: () {
                     
-                  },
-                  borderRadius: BorderRadius.circular(16.r),
-                  child: workspace.isEmpty ? Container(
-                    height: 80.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: kNeutralDarkGrey,
-                      borderRadius: BorderRadius.circular(16.sp)
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Add a workspace  + ',
-                        style: kNormalTextStyle(context).copyWith(
-                          color: kNeutralDark,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ) : SettingsCard(
-                    leading: CircleAvatar(
-                      backgroundColor: kNeutralDarkGrey,
-                      radius: 24.r,
-                    ),
-                    main: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Workspace name',
-                          style: kNormalTextStyle(context).copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 5.h),
+              //     },
+              //     borderRadius: BorderRadius.circular(16.r),
+              //     child: workspace.isEmpty ? Container(
+              //       height: 80.h,
+              //       width: double.infinity,
+              //       decoration: BoxDecoration(
+              //         color: kNeutralDarkGrey,
+              //         borderRadius: BorderRadius.circular(16.sp)
+              //       ),
+              //       child: Center(
+              //         child: Text(
+              //           'Add a workspace  + ',
+              //           style: kNormalTextStyle(context).copyWith(
+              //             color: kNeutralDark,
+              //             fontSize: 16.sp,
+              //             fontWeight: FontWeight.bold
+              //           ),
+              //         ),
+              //       ),
+              //     ) : SettingsCard(
+              //       leading: CircleAvatar(
+              //         backgroundColor: kNeutralDarkGrey,
+              //         radius: 24.r,
+              //       ),
+              //       main: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Text(
+              //             'Workspace name',
+              //             style: kNormalTextStyle(context).copyWith(
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //           ),
+              //           SizedBox(height: 5.h),
                     
-                        Text(
-                          'josephkorede36@agamil.com',
-                          style: kSecondaryNormalTextStyle(context).copyWith(
-                            fontSize: 12.sp
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ),
-              ),
+              //           Text(
+              //             'josephkorede36@agamil.com',
+              //             style: kSecondaryNormalTextStyle(context).copyWith(
+              //               fontSize: 12.sp
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     )
+              //   ),
+              // ),
 
               SettingsSection(
                 sectionName: 'Project',

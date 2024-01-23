@@ -692,3 +692,172 @@ class FieldSection extends StatelessWidget {
     );
   }
 }
+
+
+class NormalTextFieldWithLength extends StatelessWidget {
+  const NormalTextFieldWithLength({
+    super.key,
+    this.initialValue,
+    required this.hintText,
+    required this.onChanged,
+    this.obscureText = false,
+    required this.enabledBorderColor,
+    required this.focusedBorderColor,
+    required this.errorBorderColor,
+    required this.focusedErrorBorderColor,
+    required this.errorTextStyleColor,
+    required this.iconColor,
+    required this.cursorColor,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.readonly,
+    this.fontSize,
+    this.textInputType,
+    this.textColor,
+    this.suffixIconOTap,
+    this.labelText,
+    this.maxLines,
+    this.fillColor,
+    this.filled=false,
+    this.borderRadius,
+    this.validator,
+    this.contentPadding,
+    this.maxLength,
+  });
+
+  final String? initialValue;
+  final String? labelText;
+  final String hintText;
+  final bool? readonly;
+  final Function(String? value) onChanged;
+  final Function()? suffixIconOTap;
+  final String? Function(String? value)? validator;
+  final Color enabledBorderColor;
+  final bool obscureText;
+  final Color? textColor;
+  final bool? filled;
+  final Color? fillColor;
+  final Color focusedBorderColor;
+  final Color errorBorderColor;
+  final Color focusedErrorBorderColor;
+  final Color errorTextStyleColor;
+  final Color iconColor;
+  final Color cursorColor;
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
+  final double? fontSize;
+  final TextInputType? textInputType;
+  final int? maxLines;
+  final double? borderRadius;
+  final int? maxLength;
+  final EdgeInsetsGeometry? contentPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.r),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          labelText != null ? Text(
+            labelText!,
+            style: kNormalTextStyle(context).copyWith(
+              fontSize: 16.sp,
+              color: kMainColor(context),
+              fontWeight: FontWeight.bold
+            ),
+          ) : const SizedBox(),
+
+          labelText != null ? SizedBox(height: 10.h,) : const SizedBox(),
+
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: kScaffoldBgColor(context) == kNeutralDark ? [] : [
+                BoxShadow(
+                  color: kNeutralLightGrey,
+                  blurRadius: 8.r,
+                  spreadRadius: 4.r,
+                  offset: const Offset(-0.5, 1.0)
+                ),
+              ]
+            ),
+            child: TextFormField(
+              readOnly: readonly ?? false,
+              initialValue: initialValue,
+              minLines: 1,
+              maxLines: maxLines ?? 1,
+              style: kNormalTextStyle(context).copyWith(
+                fontSize: fontSize ?? 15.sp, 
+                color: textColor ?? kMainColor(context),
+              ),
+              cursorColor: cursorColor,
+              obscureText: obscureText,
+              keyboardType: textInputType ?? TextInputType.text,
+              maxLength: maxLength ?? 1000,
+              decoration: InputDecoration(
+                contentPadding: contentPadding ?? EdgeInsets.symmetric(horizontal: 12.sp, vertical: 16.sp),
+                hintText: hintText,
+                filled: filled,
+                fillColor: fillColor,
+                hintStyle: kTextFieldTextStyle(context).copyWith(
+                  color: kMainColor(context).withOpacity(0.5),
+                ),
+                prefixIcon: prefixIcon != null ? Padding(
+                  padding: EdgeInsets.only(right: 16.r, left: 24.r),
+                  child: Icon(
+                    prefixIcon,
+                    color: iconColor,
+                    size: 24.r,
+                  ),
+                ) : const SizedBox(width: 0,),
+                suffixIcon: GestureDetector(
+                  onTap: suffixIconOTap ?? () {},
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 16.r),
+                    child: Icon(suffixIcon, color: kMainColor(context), size: 24.r,),
+                  ),
+                ),
+                // labelText: labelText ?? hintText,
+                // labelStyle: TextStyle(
+                //   color: kFontTheme(context).withOpacity(0.5),
+                //   fontWeight: FontWeight.normal,
+                //   fontSize: 15.sp,
+                // ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: enabledBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: focusedBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: errorBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: focusedErrorBorderColor, width: 1.w),
+                  borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 16.r)),
+                ),
+                errorStyle: TextStyle(
+                  color: errorTextStyleColor,
+                  fontSize: 15.sp,
+                ),
+              ),
+              // onSaved: onSaved,
+              onChanged: onChanged,
+              validator: validator ??  (value) {
+                if (value!.isEmpty ) {
+                  return 'This field cannot be empty';
+                } else {
+                  return null;
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

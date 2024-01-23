@@ -1,8 +1,13 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/auth/reset_password_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/services/email.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/animations.dart';
 import 'package:taskify/shared/utils/logger.dart';
@@ -12,10 +17,10 @@ import 'package:taskify/shared/widgets/snackbar.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key, required this.email, required this.otp});
+  OTPScreen({super.key, required this.email, required this.otp});
   
   final String email;
-  final int otp;
+  int otp;
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -27,6 +32,26 @@ class _OTPScreenState extends State<OTPScreen> {
   String otpCode = '';
   int secondsToResend = 60;
   bool showResendButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+    updateSecondsToResend();
+  }
+
+  updateSecondsToResend() {
+    Timer.periodic(kDurationSecs(1), (timer) {
+      setState(() {
+        secondsToResend -= 1;
+      });
+
+      if (secondsToResend == 0) {
+        setState(() {
+          showResendButton = true;
+        });
+      }
+    });
+  }
 
   processForm(String otp) {
     logger(widget.otp);
@@ -92,7 +117,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
             SizedBox(height: 15.h),
 
-            Row(
+            showResendButton ? const SizedBox() : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -117,8 +142,16 @@ class _OTPScreenState extends State<OTPScreen> {
             showResendButton ? Button(
               width: double.infinity,
               buttonText: 'Resend OTP', 
-              onPressed: () {
-                
+              onPressed: () async {
+                setState(() {
+                  showResendButton = false;
+                  secondsToResend = 60;
+                });
+                widget.otp = await EmailService().sendOtp(context, widget.email);
+
+                logger('Resemt OTP: ${widget.otp}');
+
+                updateSecondsToResend();
               }, 
               buttonColor: kPrimaryColor, 
               textColor: kNeutralLight,

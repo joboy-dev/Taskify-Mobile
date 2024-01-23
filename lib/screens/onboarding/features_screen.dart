@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/auth/signin_screen.dart';
-import 'package:taskify/screens/auth/signup_screen.dart';
+import 'package:taskify/screens/auth/signup/email_password_screen.dart';
 import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/animations.dart';
@@ -109,7 +109,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                     width: double.infinity,
                     buttonText: 'Get Started', 
                     onPressed: () {
-                      navigatorPush(context, const SignUpScreen());
+                      navigatorPush(context, const EmailPasswordScreen());
                     }, 
                     buttonColor: kPrimaryColor, 
                     textColor: kNeutralLight,
@@ -123,7 +123,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                     firstText: 'Already have an account? ', 
                     secondText: 'Sign In', 
                     onTap: () {
-                      navigatorPush(context, const SignInScreen());
+                      navigatorPushReplacement(context, const SignInScreen());
                     },
                   ).animate(effects: MyEffects.fadeSlide(), delay: kDurationMs(500)),
                 ],
@@ -152,7 +152,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
 
                         TextButton(
                           onPressed: () {
-                            navigatorPush(context, const SignUpScreen());
+                            navigatorPushReplacement(context, const EmailPasswordScreen());
                           }, 
                           child: Text(
                             'Skip',

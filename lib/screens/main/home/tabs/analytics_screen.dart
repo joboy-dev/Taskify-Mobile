@@ -122,7 +122,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                   ),
                       
                                   BarChartRodData(
-                                    toY: (random.nextInt(100))/1,
+                                    toY: (random.nextInt(10))/1,
                                     color: kPrimaryColor,
                                     borderRadius: BorderRadius.circular(5.r),
                                     width: 8.w,

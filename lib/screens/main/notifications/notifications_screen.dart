@@ -52,13 +52,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 return Slidable(
                   key: ValueKey(index),
                   endActionPane: ActionPane(
-                    motion: const StretchMotion(),
+                    motion: const BehindMotion(),
                     children: [
                       SlidableAction(
                         onPressed: (context) {
                           
                         },
-                        backgroundColor: kNeutralLight,
+                        backgroundColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : kNeutralDark,
                         foregroundColor: kPrimaryColor,
                         icon: Icons.check_circle_outline,
                         borderRadius: BorderRadius.circular(16.r),
@@ -68,7 +68,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         onPressed: (context) {
                           
                         },
-                        backgroundColor: kNeutralLight,
+                        backgroundColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : kNeutralDark,
                         foregroundColor: kSemanticRed,
                         icon: Icons.delete_outline,
                         borderRadius: BorderRadius.circular(16.r),

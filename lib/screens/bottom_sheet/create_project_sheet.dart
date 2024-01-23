@@ -28,23 +28,11 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
 
   bool showSearchWidget = false;
 
-  List<Color> labelColors = [
-    kOverlayGreen,
-    kOverlayLightOrange,
-    kOverlayLightPink,
-    kOverlayOrange,
-    kOverlayPink,
-    kOverlayPurple,
-    kOverlayYellow
-  ];
-  String? selectedLabelColor;
-
   List selectedMembers = [];
 
   // Error texts
   bool showCalendarError = false;
   bool showMemberError = false;
-  bool showLabelError = false;
 
   validateNonTextFields() {
     // Date validation
@@ -55,17 +43,6 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
     } else {
       setState(() {
         showCalendarError = false;
-      });
-    }
-
-    // Label validation
-    if (selectedLabelColor == null) {
-      setState(() {
-        showLabelError = true;
-      });
-    } else {
-      setState(() {
-        showLabelError = false;
       });
     }
 
@@ -83,7 +60,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
 
   processForm() {
     if (_formKey.currentState!.validate()) {
-      if (!showCalendarError && !showLabelError && !showMemberError) {
+      if (!showCalendarError && !showMemberError) {
         navigatorPop(context);
       }
     } else {
@@ -249,55 +226,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             ),
           ) : const SizedBox(),
       
-          FieldSection(
-            text: 'Select label', 
-            child: SizedBox(
-              height: 50.h,
-              width: double.infinity,
-              child: ListView.builder(
-                itemCount: labelColors.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  final color = labelColors[index];
-                  return Padding(
-                    padding: EdgeInsets.only(right: 8.r),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedLabelColor = color.toString().substring(6, 16);
-                          showLabelError = false;
-                          logger(selectedLabelColor!);
-                        });
-                      },
-                      child: Container(
-                        height: 44.h,
-                        width: 44.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: selectedLabelColor == null 
-                              ? Colors.transparent
-                              : Color(int.parse(selectedLabelColor!)) == color ? kNeutralDarkGrey : Colors.transparent,
-                            width: 3.w,
-                          ),
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: color,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-
-          // Error text
-          showLabelError ? Text(
-            'Select a label',
-            style: kNormalTextStyle(context).copyWith(
-              color: kSemanticRed,
-            ),
-          ) : const SizedBox(),
-          SizedBox(height: 10.h),
+          
       
           NormalTextFieldNoPrefixIcon(
             hintText: 'Enter description',

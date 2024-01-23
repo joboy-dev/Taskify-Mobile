@@ -195,7 +195,7 @@ class _TaskDetailState extends State<TaskDetail> {
                       sectionTitle: 'Comments (5)', 
                       icon: Icons.message_outlined, 
                       child: SizedBox(
-                        height: 300.h,
+                        height: 200.h,
                         width: double.infinity,
                         child: ListView.builder(
                           itemCount: 5,
@@ -204,33 +204,58 @@ class _TaskDetailState extends State<TaskDetail> {
                               padding: EdgeInsets.only(bottom: 20.r),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  CircleAvatar(
-                                    backgroundColor: kNeutralDarkGrey,
-                                    radius: 30.r,
+                                  Expanded(
+                                    flex: 1,
+                                    child: CircleAvatar(
+                                      backgroundColor: kNeutralDarkGrey,
+                                      radius: 30.r,
+                                    ),
                                   ),
                                   SizedBox(width: 20.w),
                                   
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Name Name',
+                                  Expanded(
+                                    flex: 6,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Name Name',
+                                          style: kNormalTextStyle(context).copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: kMainColor(context)
+                                          ),
+                                        ),
+                                        SizedBox(height: 5.h),
+                                        Text(
+                                          'They are commonly assigned as writing exercises at high school and in composition classes.',
+                                          style: kSecondaryNormalTextStyle(context).copyWith(
+                                            fontSize: 12.sp
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      onPressed: () {
+                                      }, 
+                                      style: TextButton.styleFrom(
+                                        padding: const EdgeInsets.all(0),
+                                      ),
+                                      child: Text(
+                                        'Reply',
                                         style: kNormalTextStyle(context).copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: kMainColor(context)
+                                          color: kPrimaryColor,
+                                          fontSize: 12.sp
                                         ),
                                       ),
-                                      SizedBox(height: 5.h),
-                                      Text(
-                                        'They are commonly assigned as writing exercises at high school and in composition classes.',
-                                        style: kSecondaryNormalTextStyle(context),
-                                      ),
-                                    ],
-                                  )
+                                    ),
+                                  ),
                                 ],
                               ),
                             );
@@ -245,53 +270,44 @@ class _TaskDetailState extends State<TaskDetail> {
           ),
 
           // Comment Text Field
-          Container(
-            height: 70.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: kScaffoldBgColor(context),
-            ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 5.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: NormalTextFieldNoPrefixIcon(
-                        hintText: 'Post your comment',
-                        onChanged: (value) {
-                          setState(() {
-                            comment = value!;
-                          });
-                        }, 
-                        enabledBorderColor: kScaffoldBgColor(context), 
-                        focusedBorderColor: kScaffoldBgColor(context), 
-                        errorBorderColor: kSemanticRed, 
-                        focusedErrorBorderColor: kSemanticRed, 
-                        errorTextStyleColor: kSemanticRed, 
-                        iconColor: kMainColor(context), 
-                        cursorColor: kMainColor(context),
-                        filled: true,
-                        fillColor: kScaffoldBgColor(context),
-                        maxLines: 3,
-                        showShadow: false,
-                      ),
-                    ),
-                    SizedBox(width: 10.w),
-              
-                    Expanded(
-                      flex: 0,
-                      child: IconButton(
-                        onPressed: sendComment, 
-                        icon: Icon(Icons.send_outlined, size: 24.w, color: kMainColor(context),),
-                      ),
-                    )
-                  ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 2.r),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: NormalTextFieldNoPrefixIcon(
+                    hintText: 'Post your comment',
+                    onChanged: (value) {
+                      setState(() {
+                        comment = value!;
+                      });
+                    }, 
+                    enabledBorderColor: kScaffoldBgColor(context), 
+                    focusedBorderColor: kScaffoldBgColor(context), 
+                    errorBorderColor: kSemanticRed, 
+                    focusedErrorBorderColor: kSemanticRed, 
+                    errorTextStyleColor: kSemanticRed, 
+                    iconColor: kMainColor(context), 
+                    cursorColor: kMainColor(context),
+                    filled: true,
+                    fillColor: kScaffoldBgColor(context),
+                    maxLines: 3,
+                    showShadow: false,
+                  ),
                 ),
-              ),
+                SizedBox(width: 10.w),
+          
+                Expanded(
+                  flex: 0,
+                  child: IconButton(
+                    onPressed: sendComment, 
+                    icon: Icon(Icons.send_outlined, size: 24.w, color: kMainColor(context),),
+                  ),
+                )
+              ],
             ),
           )
         ],

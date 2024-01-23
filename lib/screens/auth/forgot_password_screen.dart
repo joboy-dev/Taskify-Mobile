@@ -42,9 +42,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       setState(() {
         isLoading = false;
       });
+      if (otp != 0) {
 
-      logger(otp);
-      navigatorPush(context, OTPScreen(email: email, otp: otp,));
+        logger(otp);
+        navigatorPush(context, OTPScreen(email: email, otp: otp,));
+      }
+
     }
   }
 

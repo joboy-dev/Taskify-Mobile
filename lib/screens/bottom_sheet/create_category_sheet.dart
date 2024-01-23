@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/shared/constants.dart';
+import 'package:taskify/shared/utils/logger.dart';
 import 'package:taskify/shared/utils/navigator.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/textfield.dart';
@@ -15,11 +16,39 @@ class CreateCategorySheet extends StatefulWidget {
 class _CreateCategorySheetState extends State<CreateCategorySheet> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool showLabelError = false;
 
   String categoryName = '';
+  List<Color> labelColors = [
+    kOverlayGreen,
+    kOverlayLightOrange,
+    kOverlayLightPink,
+    kOverlayOrange,
+    kOverlayPink,
+    kOverlayPurple,
+    kOverlayYellow
+  ];
+  String? selectedLabelColor;
+
+  validateNonTextFields() {
+    // Label validation
+    if (selectedLabelColor == null) {
+      setState(() {
+        showLabelError = true;
+      });
+
+      return false;
+    } else {
+      setState(() {
+        showLabelError = false;
+      });
+
+      return true;
+    }
+  }
 
   processForm() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() && validateNonTextFields()) {
       navigatorPop(context);
     }
     
@@ -33,7 +62,7 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NormalTextFieldNoPrefixIcon(
-            hintText: 'Catgory name',
+            hintText: 'Category name',
             labelText: 'Name',
             onChanged: (value) {
               setState(() {
@@ -51,6 +80,56 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
             fillColor: kScaffoldBgColor(context),
             textInputType: TextInputType.visiblePassword,
           ),
+          SizedBox(height: 10.h),
+
+          FieldSection(
+            text: 'Select label', 
+            child: SizedBox(
+              height: 50.h,
+              width: double.infinity,
+              child: ListView.builder(
+                itemCount: labelColors.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  final color = labelColors[index];
+                  return Padding(
+                    padding: EdgeInsets.only(right: 8.r),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedLabelColor = color.toString().substring(6, 16);
+                          showLabelError = false;
+                          logger(selectedLabelColor!);
+                        });
+                      },
+                      child: Container(
+                        height: 44.h,
+                        width: 44.h,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: selectedLabelColor == null 
+                              ? Colors.transparent
+                              : Color(int.parse(selectedLabelColor!)) == color ? kNeutralDarkGrey : Colors.transparent,
+                            width: 3.w,
+                          ),
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: color,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+
+          // Error text
+          showLabelError ? Text(
+            'Select a label',
+            style: kNormalTextStyle(context).copyWith(
+              color: kSemanticRed,
+            ),
+          ) : const SizedBox(),
           SizedBox(height: 10.h),
       
           Button(
