@@ -92,7 +92,7 @@ class _OtherFieldsScreenState extends State<OtherFieldsScreen> {
     return BaseScreen(
       showAppBar: true,
       showBackButton: true,
-      title: '',
+      title: 'Fill in other details',
       titleFontSize: 16.sp,
       screen: Form(
         key: _formKey,
