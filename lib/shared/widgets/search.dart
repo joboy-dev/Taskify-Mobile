@@ -30,6 +30,6 @@ class _SearchWidgetState extends State<SearchWidget> {
 
         
       ],
-    ).animate(effects: MyEffects.fadeSlide());
+    ).animate(effects: MyEffects.fadeSlide(offset: const Offset(0, -0.02)));
   }
 }

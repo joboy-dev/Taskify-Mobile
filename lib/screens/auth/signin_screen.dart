@@ -127,7 +127,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                   child: Text(
                     'Forgot Password?', 
-                    style: kNormalTextStyle(context).copyWith(color: kSecondaryColor),
+                    style: kNormalTextStyle(context).copyWith(
+                      color: kSecondaryColor, 
+                      fontWeight: FontWeight.bold
+                    ),
                     textAlign: TextAlign.end,
                   ),
                 ),

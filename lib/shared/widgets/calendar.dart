@@ -243,7 +243,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               // logger(widget.selectedDates);
             },
           ),
-        ).animate(effects: MyEffects.fadeSlide()),
+        ).animate(effects: MyEffects.fadeSlide(offset: const Offset(0, -0.02))),
         SizedBox(height: 20.h),
 
         widget.selectedDates.isEmpty 

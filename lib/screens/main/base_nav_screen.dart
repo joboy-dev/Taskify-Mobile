@@ -58,7 +58,7 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
       MenuItem(
         text: 'Create team', 
         textColor: kMainColor(context),
-        icon: Icons.person_add_alt_outlined, 
+        icon: Icons.people_alt_outlined, 
         onTap: () {
           showSheet(context, const CreateTeamSheet(), 'Create Team');
         },

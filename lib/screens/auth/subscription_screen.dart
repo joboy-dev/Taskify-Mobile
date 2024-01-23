@@ -7,6 +7,7 @@ import 'package:taskify/shared/utils/logger.dart';
 import 'package:taskify/shared/utils/navigator.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
+import 'package:taskify/shared/widgets/snackbar.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key, required this.email, required this.password, required this.firstName, required this.lastName, required this.phone});
@@ -21,8 +22,18 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   List<String> plans = ['Basic', 'Premium', 'Enterprise'];
   String? selectedPlan;
 
+  // IconData planIcon() {
+  //   if (selectedPlan == 'basic') {
+  //     return Icons.
+  //   }
+  // }
+
   processForm() {
-    navigatorPush(context, const VerifyEmailAddressScreen());
+    if (selectedPlan != null) {
+      navigatorPush(context, const VerifyEmailAddressScreen());
+    } else {
+      showSnackbar(context, 'Select a plan before proceeding');
+    }
   }
 
   @override

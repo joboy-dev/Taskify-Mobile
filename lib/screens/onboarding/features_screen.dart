@@ -123,7 +123,7 @@ class _FeaturesScreenState extends State<FeaturesScreen> {
                     firstText: 'Already have an account? ', 
                     secondText: 'Sign In', 
                     onTap: () {
-                      navigatorPushReplacement(context, const SignInScreen());
+                      navigatorPush(context, const SignInScreen());
                     },
                   ).animate(effects: MyEffects.fadeSlide(), delay: kDurationMs(500)),
                 ],

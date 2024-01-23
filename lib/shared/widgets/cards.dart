@@ -8,17 +8,18 @@ import 'package:taskify/shared/widgets/chart.dart';
 import 'package:taskify/shared/widgets/image_stack.dart';
 
 class BaseCard extends StatelessWidget {
-  const BaseCard({super.key, required this.onTap, required this.child, this.color, this.borderColor});
+  const BaseCard({super.key, this.onTap, required this.child, this.color, this.borderColor, this.padding});
 
-  final Function() onTap;
+  final Function()? onTap;
   final Widget child;
   final Color? color;
   final Color? borderColor;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap ?? () {},
       borderRadius: BorderRadius.circular(16.r),
       child: Card(
         color: color ?? kScaffoldBgColor(context),
@@ -32,7 +33,10 @@ class BaseCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(16.r),
         ),
-        child: child,
+        child: Padding(
+          padding: padding ?? EdgeInsets.all(16.r),
+          child: child,
+        ),
       ),
     );
   }
@@ -42,7 +46,7 @@ class ProjectCard extends StatelessWidget {
   const ProjectCard({
     super.key,
     required this.projectId,
-    required this.images, 
+    this.images, 
     required this.projectName, 
     required this.startDate, 
     required this.endDate, 
@@ -51,7 +55,7 @@ class ProjectCard extends StatelessWidget {
   });
 
   final int projectId;
-  final List<String> images;
+  final List<String>? images;
   final String projectName;
   final String startDate;
   final String endDate;
@@ -67,114 +71,112 @@ class ProjectCard extends StatelessWidget {
         navigatorPush(context, const ProjectDetailScreen());
       },
       
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  projectName,
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold
-                  ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                projectName,
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold
                 ),
-    
-                ImageStackHorizontal(
-                  imagePaths: images,
-                  imageRadius: 15.r,
-                ),
-              ],
-            ),
-            SizedBox(height: 5.h),
-    
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
-                    SizedBox(width: 5.w),
-                    Text(
-                      startDate,
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 11.sp
-                      ),
-                    )
-                  ],
-                ),
-    
-                Image(
-                  image: const AssetImage('assets/vectors/arrow.png'),
-                  fit: BoxFit.fill,
-                  height: 14.h,
-                  width: 50.w,
-                ),
-    
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kPrimaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      endDate,
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 11.sp,
-                        color: kPrimaryColor
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: 5.h),
-    
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  taskCompletePercent > 100 ? '100%' : '$taskCompletePercent%',
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-    
-                HorizontalBar(
-                  height: 8.h,
-                  innerWidth: 125.w,
-                  outerWidth: (completedTasks / totalTasks) * 1,
-                  innerColor: kNeutralLightGrey,
-                  outerColor: kPrimaryColor,
-                ),
-    
-                Row(
-                  children: [
-                    Text(
-                      '$completedTasks',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold
-                      ),
+              ),
+  
+              ImageStackHorizontal(
+                imagePaths: images ?? [],
+                imageRadius: 15.r,
+              ),
+            ],
+          ),
+          SizedBox(height: 5.h),
+  
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
+                  SizedBox(width: 5.w),
+                  Text(
+                    startDate,
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 11.sp
                     ),
-                    Text(
-                      '/$totalTasks tasks',
-                      style: kNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold
-                      ),
+                  )
+                ],
+              ),
+  
+              Image(
+                image: const AssetImage('assets/vectors/arrow.png'),
+                fit: BoxFit.fill,
+                height: 14.h,
+                width: 50.w,
+              ),
+  
+              Row(
+                children: [
+                  Icon(Icons.calendar_today_outlined, size: 16.w, color: kPrimaryColor),
+                  SizedBox(width: 5.w),
+                  Text(
+                    endDate,
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 11.sp,
+                      color: kPrimaryColor
                     ),
-                  ],
-                )
-              ],
-            ),
-    
-          ],
-        ),
+                  )
+                ],
+              )
+            ],
+          ),
+          SizedBox(height: 5.h),
+  
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                taskCompletePercent > 100 ? '100%' : '$taskCompletePercent%',
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+  
+              HorizontalBar(
+                height: 8.h,
+                innerWidth: 125.w,
+                outerWidth: (completedTasks / totalTasks) * 1,
+                innerColor: kNeutralLightGrey,
+                outerColor: kPrimaryColor,
+              ),
+  
+              Row(
+                children: [
+                  Text(
+                    '$completedTasks',
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '/$totalTasks tasks',
+                    style: kNormalTextStyle(context).copyWith(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+  
+        ],
       ),
+      
     );
   }
 }
@@ -201,70 +203,68 @@ class MiniTaskCard extends StatelessWidget {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
       
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child:  Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundColor: kNeutralLightGrey,
-              radius: 25.r,
-              child: Center(
-                child: Icon(Icons.task_alt, color: kNeutralDark, size: 30.w,),
-              ),
+      child:  Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundColor: kNeutralLightGrey,
+            radius: 25.r,
+            child: Center(
+              child: Icon(Icons.task_alt, color: kNeutralDark, size: 30.w,),
             ),
-            SizedBox(width: 10.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  taskName,
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+          ),
+          SizedBox(width: 10.w),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                taskName,
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 5.h),
-    
-                showAssigned! ? Row(
-                  children: [
-                    Text(
-                      'Assigned to: ',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp
-                      ),
+              ),
+              SizedBox(height: 5.h),
+  
+              showAssigned! ? Row(
+                children: [
+                  Text(
+                    'Assigned to: ',
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 14.sp
                     ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Member name',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp,
-                        color: kSecondaryColor
-                      ),
-                    )
-                  ],
-                ) : const SizedBox(),
-                SizedBox(height: 5.h),
-    
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Deadline: $endDate',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 14.sp
-                      ),
-                    )
-                  ],
-                ),
-                
-              ],
-            )
-          ],
-        )
-      ),
+                  ),
+                  SizedBox(width: 5.w),
+                  Text(
+                    'Member name',
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 14.sp,
+                      color: kSecondaryColor
+                    ),
+                  )
+                ],
+              ) : const SizedBox(),
+              SizedBox(height: 5.h),
+  
+              Row(
+                children: [
+                  Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
+                  SizedBox(width: 5.w),
+                  Text(
+                    'Deadline: $endDate',
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 14.sp
+                    ),
+                  )
+                ],
+              ),
+              
+            ],
+          )
+        ],
+      )
+      
     );
   }
 }
@@ -290,88 +290,86 @@ class MainTaskCard extends StatelessWidget {
       onTap: () {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 12.r),
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: kNeutralLightGrey,
-                  radius: 12.r,
-                  child: Center(
-                    child: Icon(Icons.task_alt, color: kNeutralDark, size: 15.w,),
-                  ),
+      padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 12.r),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: kNeutralLightGrey,
+                radius: 12.r,
+                child: Center(
+                  child: Icon(Icons.task_alt, color: kNeutralDark, size: 15.w,),
                 ),
-                SizedBox(width: 5.w),
-                Text(
-                  taskName,
-                  style: kNormalTextStyle(context).copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold
-                  ),
+              ),
+              SizedBox(width: 5.w),
+              Text(
+                taskName,
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold
                 ),
-              ],
-            ),
-            SizedBox(height: 10.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.timer_sharp, size: 14.w, color: kPrimaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Deadline:',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        color: kPrimaryColor
-                      ),
-                    )
-                  ],
-                ),
-    
-                Padding(
-                  padding: EdgeInsets.only(left: 20.r),
-                  child: Text(
-                    endDate,
+              ),
+            ],
+          ),
+          SizedBox(height: 10.w),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.timer_sharp, size: 14.w, color: kPrimaryColor),
+                  SizedBox(width: 5.w),
+                  Text(
+                    'Deadline:',
                     style: kSecondaryNormalTextStyle(context).copyWith(
                       fontSize: 12.sp,
+                      color: kPrimaryColor
                     ),
+                  )
+                ],
+              ),
+          
+              Padding(
+                padding: EdgeInsets.only(left: 20.r),
+                child: Text(
+                  endDate,
+                  style: kSecondaryNormalTextStyle(context).copyWith(
+                    fontSize: 12.sp,
                   ),
                 ),
-                SizedBox(height: 5.h),
-    
-                Row(
-                  children: [
-                    Icon(Icons.priority_high_rounded, size: 14.w, color: kSecondaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      'Priority:',
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 12.sp,
-                        color: kSecondaryColor
-                      ),
-                    )
-                  ],
-                ),
-    
-                Padding(
-                  padding: EdgeInsets.only(left: 20.r),
-                  child: Text(
-                    priority,
+              ),
+              SizedBox(height: 5.h),
+          
+              Row(
+                children: [
+                  Icon(Icons.priority_high_rounded, size: 14.w, color: kSecondaryColor),
+                  SizedBox(width: 5.w),
+                  Text(
+                    'Priority:',
                     style: kSecondaryNormalTextStyle(context).copyWith(
                       fontSize: 12.sp,
+                      color: kSecondaryColor
                     ),
+                  )
+                ],
+              ),
+          
+              Padding(
+                padding: EdgeInsets.only(left: 20.r),
+                child: Text(
+                  priority,
+                  style: kSecondaryNormalTextStyle(context).copyWith(
+                    fontSize: 12.sp,
                   ),
                 ),
-              ],
-            )
-          ],
-        )
+              ),
+            ],
+          )
+        ],
       ),
       
     );
@@ -402,83 +400,80 @@ class TaskCard extends StatelessWidget {
         navigatorPush(context, TaskDetail(taskId: taskId));
       },
       
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: kNeutralLightGrey,
-                      radius: 12.r,
-                      child: Center(
-                        child: Icon(Icons.task_alt, color: kNeutralDark, size: 20.w,),
-                      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: kNeutralLightGrey,
+                    radius: 12.r,
+                    child: Center(
+                      child: Icon(Icons.task_alt, color: kNeutralDark, size: 20.w,),
                     ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      taskName,
-                      style: kNormalTextStyle(context).copyWith(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold
-                      ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    taskName,
+                    style: kNormalTextStyle(context).copyWith(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold
                     ),
-                  ],
-                ),
-    
-                ImageStackHorizontal(
-                  imagePaths: images,
-                  imageRadius: 15.r,
-                ),
-              ],
-            ),
-            SizedBox(height: 15.h),
-    
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
-                    SizedBox(width: 5.w),
-                    Text(
-                      startDate,
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 11.sp
-                      ),
-                    )
-                  ],
-                ),
-    
-                Image(
-                  image: const AssetImage('assets/vectors/arrow.png'),
-                  fit: BoxFit.fill,
-                  height: 14.h,
-                  width: 50.w,
-                ),
-    
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today_outlined, size: 16.w, color: kPrimaryColor),
-                    SizedBox(width: 5.w),
-                    Text(
-                      endDate,
-                      style: kSecondaryNormalTextStyle(context).copyWith(
-                        fontSize: 11.sp,
-                        color: kPrimaryColor
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ],
-        ),
+                  ),
+                ],
+              ),
+  
+              ImageStackHorizontal(
+                imagePaths: images,
+                imageRadius: 15.r,
+              ),
+            ],
+          ),
+          SizedBox(height: 15.h),
+  
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.calendar_today_outlined, size: 16.w, color: kNeutralDarkGrey),
+                  SizedBox(width: 5.w),
+                  Text(
+                    startDate,
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 11.sp
+                    ),
+                  )
+                ],
+              ),
+  
+              Image(
+                image: const AssetImage('assets/vectors/arrow.png'),
+                fit: BoxFit.fill,
+                height: 14.h,
+                width: 50.w,
+              ),
+  
+              Row(
+                children: [
+                  Icon(Icons.calendar_today_outlined, size: 16.w, color: kPrimaryColor),
+                  SizedBox(width: 5.w),
+                  Text(
+                    endDate,
+                    style: kSecondaryNormalTextStyle(context).copyWith(
+                      fontSize: 11.sp,
+                      color: kPrimaryColor
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

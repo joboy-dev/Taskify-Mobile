@@ -5,6 +5,8 @@ import 'package:taskify/screens/bottom_sheet/create_category_sheet.dart';
 import 'package:taskify/screens/bottom_sheet/delete_account_sheet.dart';
 import 'package:taskify/screens/bottom_sheet/logout_sheet.dart';
 import 'package:taskify/screens/main/base_nav_screen.dart';
+import 'package:taskify/screens/main/settings/all_categories_screen.dart';
+import 'package:taskify/screens/main/settings/teams/all_teams_screen.dart';
 import 'package:taskify/screens/main/settings/edit_profile_screen.dart';
 import 'package:taskify/services/provider/notifications_provider.dart';
 import 'package:taskify/services/provider/theme_provider.dart';
@@ -165,11 +167,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               // ),
 
               SettingsSection(
-                sectionName: 'Project',
+                sectionName: 'App Settings',
                 child: Column(
                   children: [
                     InkWell(
                       onTap: () {
+                        navigatorPush(context, const AllCategoriesScreen());
                       },
                       borderRadius: BorderRadius.circular(16.r),
                       child: SettingsCard(
@@ -215,6 +218,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       )
                     ),
 
+                    InkWell(
+                      onTap: () {
+                        navigatorPush(context, const AllTeamsScreen());
+                      },
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: SettingsCard(
+                        leading: CircleAvatar(
+                          backgroundColor: kNeutralLightGrey,
+                          radius: 24.r,
+                          child: Icon(
+                            Icons.people_alt_outlined,
+                            color: kNeutralDark,
+                            size: 24.w,
+                          ),
+                        ),
+                        main: Text(
+                          'View all teams',
+                          style: kNormalTextStyle(context).copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    ),
+
                   ],
                 ),
               ),
@@ -244,17 +271,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   trailing: Expanded(
                     flex: 1,
-                    child: Switch.adaptive(
-                      value: darkMode, 
-                      activeTrackColor: kPrimaryColor,
-                      inactiveTrackColor: kNeutralLightGrey,
-                      onChanged: (value) {
-                        setState(() {
-                          darkMode = value;
-                        });
-                        themeProvider.toggleThemeMode();
-                        logger(darkMode);
-                      },
+                    child: Transform.scale(
+                      scale: 1.r,
+                      child: Switch.adaptive(
+                        value: darkMode, 
+                        activeTrackColor: kPrimaryColor,
+                        inactiveTrackColor: kNeutralLightGrey,
+                        onChanged: (value) {
+                          setState(() {
+                            darkMode = value;
+                          });
+                          themeProvider.toggleThemeMode();
+                          logger(darkMode);
+                        },
+                      ),
                     ),
                   ),
                 )
@@ -285,17 +315,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   trailing: Expanded(
                     flex: 1,
-                    child: Switch.adaptive(
-                      value: receiveNotifications, 
-                      activeTrackColor: kPrimaryColor,
-                      inactiveTrackColor: kNeutralLightGrey,
-                      onChanged: (value) {
-                        setState(() {
-                          receiveNotifications = value;
-                        });
-                        notificationsProvider.toggleNotifications();
-                        logger(receiveNotifications);
-                      },
+                    child: Transform.scale(
+                      scale: 1.r,
+                      child: Switch.adaptive(
+                        value: receiveNotifications, 
+                        activeTrackColor: kPrimaryColor,
+                        inactiveTrackColor: kNeutralLightGrey,
+                        onChanged: (value) {
+                          setState(() {
+                            receiveNotifications = value;
+                          });
+                          notificationsProvider.toggleNotifications();
+                          logger(receiveNotifications);
+                        },
+                      ),
                     ),
                   ),
                 )

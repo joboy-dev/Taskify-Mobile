@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:taskify/screens/main/base_nav_screen.dart';
 import 'package:taskify/services/provider/notifications_provider.dart';
 import 'package:taskify/shared/constants.dart';
+import 'package:taskify/shared/widgets/cards.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -75,29 +76,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       ),
                     ],
                   ),
-                  child: Card(
-                    color: kScaffoldBgColor(context),
-                    surfaceTintColor: Colors.transparent,
-                    elevation: kScaffoldBgColor(context) == kNeutralDark ? 0.0 : 2.r,
-                    shadowColor: kNeutralLightGrey,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: kNeutralLight,
-                        width: 1.w,
-                      ),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.r),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
+                  child: BaseCard(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: CircleAvatar(
                             backgroundColor: kNeutralDarkGrey,
                             radius: 24.r,
                           ),
-                          SizedBox(width: 20.w),
-                  
-                          Column(
+                        ),
+                        SizedBox(width: 20.w),
+                                      
+                        Expanded(
+                          flex: 5,
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -109,15 +102,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               SizedBox(height: 5.h),
                           
                               Text(
-                                'Messagee for you.',
+                                'Message for you. You need to read this message. Slide to see actions you can perform with this message.',
                                 style: kSecondaryNormalTextStyle(context).copyWith(
                                   fontSize: 12.sp
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 );

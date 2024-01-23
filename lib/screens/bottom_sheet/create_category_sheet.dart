@@ -19,6 +19,7 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
   bool showLabelError = false;
 
   String categoryName = '';
+  String description = '';
   List<Color> labelColors = [
     kOverlayGreen,
     kOverlayLightOrange,
@@ -79,6 +80,27 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
             filled: true,
             fillColor: kScaffoldBgColor(context),
             textInputType: TextInputType.visiblePassword,
+          ),
+
+          NormalTextFieldNoPrefixIcon(
+            labelText: 'Description',
+            hintText: 'Enter description',
+            onChanged: (value) {
+              setState(() {
+                description = value!;
+              });
+            }, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            cursorColor: kMainColor(context),
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+            textInputType: TextInputType.visiblePassword,
+            maxLines: 5,
           ),
           SizedBox(height: 10.h),
 

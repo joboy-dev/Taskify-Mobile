@@ -33,6 +33,8 @@ class _OTPScreenState extends State<OTPScreen> {
   int secondsToResend = 60;
   bool showResendButton = false;
 
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +42,7 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   updateSecondsToResend() {
-    Timer.periodic(kDurationSecs(1), (timer) {
+    _timer = Timer.periodic(kDurationSecs(1), (timer) {
       setState(() {
         secondsToResend -= 1;
       });
@@ -49,8 +51,15 @@ class _OTPScreenState extends State<OTPScreen> {
         setState(() {
           showResendButton = true;
         });
+        timer.cancel();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
   }
 
   processForm(String otp) {
