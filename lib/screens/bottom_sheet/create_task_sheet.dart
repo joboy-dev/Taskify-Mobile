@@ -50,6 +50,8 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
   String? selectedPriority;
   String? selectedCategory;
+
+  List<String> projects = ['1', '2', '3', '4', '5'];
   String? selectedProject;
 
   // Error texts
@@ -100,17 +102,33 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Text(
-          //       'Project: ',
-          //       style: kNormalTextStyle(context),
-          //     )
-              
-          //   ],
-          // ),
-          // SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Team task',
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+
+              Transform.scale(
+                scale: 1.w,
+                child: Switch.adaptive(
+                  value: isTeamTask, 
+                  activeTrackColor: kPrimaryColor,
+                  inactiveTrackColor: kNeutralLightGrey,
+                  onChanged: (value) {
+                    setState(() {
+                      isTeamTask = value;
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 10.h),
 
           NormalTextFieldNoPrefixIcon(
             hintText: 'Task name',
@@ -265,6 +283,37 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
           // Project
           DropDownFormField(
+            value: selectedProject, 
+            items: projects.map(
+              (project) => DropdownMenuItem(
+                value: project,
+                child: Text(
+                  project,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedProject = value;
+              });
+
+              logger(selectedProject!);
+            },
+            labelText: 'Select project',
+            prefixIcon: Icons.dashboard_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ),
+
+          // Team
+          isTeamTask && selectedProject != null ? DropDownFormField(
             value: selectedPriority, 
             items: Priority.values.map(
               (priority) => DropdownMenuItem(
@@ -282,8 +331,8 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
               logger(selectedPriority!);
             },
-            labelText: 'Select project',
-            prefixIcon: Icons.dashboard_outlined, 
+            labelText: 'Select team',
+            prefixIcon: Icons.people_alt_outlined, 
             enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
             focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
             errorBorderColor: kSemanticRed, 
@@ -292,7 +341,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             iconColor: kMainColor(context), 
             filled: true,
             fillColor: kScaffoldBgColor(context),
-          ),
+          ) : const SizedBox(),
       
           // Priority
           DropDownFormField(
@@ -325,6 +374,8 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             fillColor: kScaffoldBgColor(context),
           ),
 
+
+          // TODO: Based on whether it is a team task adjust the categories accordingly
           // Category
           DropDownFormField(
             value: selectedPriority, 
@@ -375,66 +426,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             fillColor: kScaffoldBgColor(context),
             textInputType: TextInputType.visiblePassword,
             maxLines: 5,
-          ),
-          SizedBox(height: 10.h),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Team task',
-                style: kNormalTextStyle(context).copyWith(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-
-              Transform.scale(
-                scale: 1.w,
-                child: Switch.adaptive(
-                  value: isTeamTask, 
-                  activeTrackColor: kPrimaryColor,
-                  inactiveTrackColor: kNeutralLightGrey,
-                  onChanged: (value) {
-                    setState(() {
-                      isTeamTask = value;
-                    });
-                  },
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 10.h),
-
-          // Team
-          !isTeamTask ? const SizedBox() : DropDownFormField(
-            value: selectedPriority, 
-            items: Priority.values.map(
-              (priority) => DropdownMenuItem(
-                value: priorityValues[priority],
-                child: Text(
-                  priority.name,
-                  style: kNormalTextStyle(context),
-                ),
-              )
-            ).toList(), 
-            onChanged: (value) {
-              setState(() {
-                selectedPriority = value;
-              });
-
-              logger(selectedPriority!);
-            },
-            labelText: 'Select team',
-            prefixIcon: Icons.people_alt_outlined, 
-            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
-            errorBorderColor: kSemanticRed, 
-            focusedErrorBorderColor: kSemanticRed, 
-            errorTextStyleColor: kSemanticRed, 
-            iconColor: kMainColor(context), 
-            filled: true,
-            fillColor: kScaffoldBgColor(context),
           ),
           SizedBox(height: 10.h),
       

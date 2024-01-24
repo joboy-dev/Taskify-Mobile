@@ -1,9 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/onboarding/features_screen.dart';
+import 'package:taskify/services/provider/notifications_provider.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/utils/navigator.dart';
 
@@ -21,6 +22,8 @@ class SplashScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ).animate(
           onComplete: (controller) async {
+            final notifications = NotificationsProvider();
+
             await Future.delayed(kDurationSecs(2));
             navigatorPushReplacement(context, const FeaturesScreen(featureId: 1));
           },

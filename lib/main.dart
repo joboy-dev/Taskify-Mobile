@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ import 'package:taskify/services/provider/theme_provider.dart';
 import 'package:taskify/shared/constants.dart';
 
 void main() {
-
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -27,6 +29,7 @@ void main() {
 
 class Taskify extends StatelessWidget {
   const Taskify({super.key});
+
 
   @override
   Widget build(BuildContext context) {

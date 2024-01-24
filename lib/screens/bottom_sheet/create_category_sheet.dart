@@ -16,6 +16,7 @@ class CreateCategorySheet extends StatefulWidget {
 class _CreateCategorySheetState extends State<CreateCategorySheet> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool isTeamCategory = false;
   bool showLabelError = false;
 
   String categoryName = '';
@@ -62,6 +63,33 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       'Team category',
+          //       style: kNormalTextStyle(context).copyWith(
+          //         fontSize: 16.sp,
+          //         fontWeight: FontWeight.bold
+          //       ),
+          //     ),
+          //     Transform.scale(
+          //       scale: 1.w,
+          //       child: Switch.adaptive(
+          //         value: isTeamCategory, 
+          //         activeTrackColor: kPrimaryColor,
+          //         inactiveTrackColor: kNeutralLightGrey,
+          //         onChanged: (value) {
+          //           setState(() {
+          //             isTeamCategory = value;
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //   ],
+          // ),
+
+          SizedBox(height: 10.h),
           NormalTextFieldNoPrefixIcon(
             hintText: 'Category name',
             labelText: 'Name',
