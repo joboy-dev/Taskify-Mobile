@@ -245,10 +245,12 @@ class _TaskDetailState extends State<TaskDetail> {
                                           style: kSecondaryNormalTextStyle(context).copyWith(
                                             fontSize: 12.sp
                                           ),
+                                          textAlign: TextAlign.justify,
                                         ),
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: 20.w),
 
                                   Expanded(
                                     flex: 1,
@@ -261,7 +263,7 @@ class _TaskDetailState extends State<TaskDetail> {
                                       child: Text(
                                         'Reply',
                                         style: kNormalTextStyle(context).copyWith(
-                                          color: kPrimaryColor,
+                                          color: kSecondaryColor,
                                           fontSize: 12.sp
                                         ),
                                       ),
