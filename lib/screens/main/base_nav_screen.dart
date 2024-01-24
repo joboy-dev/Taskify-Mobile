@@ -40,7 +40,7 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
       MenuItem(
         text: 'Create task', 
         textColor: kMainColor(context),
-        icon: Icons.task_alt_rounded, 
+        icon: Icons.add_task_outlined, 
         onTap: () {
           showSheet(context, const CreateTaskSheet(), 'Create Task');
         },

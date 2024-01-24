@@ -252,7 +252,7 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
             textColor: kNeutralLight,
           ),
 
-          SizedBox(height: 20.h),
+          SizedBox(height: 70.h),
         ],
       ),
     );

@@ -187,7 +187,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
                   child: Text(
                     'Select date',
                     style: kNormalTextStyle(context).copyWith(
-                      color: showMemberError ? kSemanticRed : kMainColor(context),
+                      color: showMemberError ? kSemanticRed : kSecondaryColor,
                     ),
                   ),
                 ),
@@ -259,7 +259,7 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             textColor: kNeutralLight,
           ),
 
-          SizedBox(height: 20.h),
+          SizedBox(height: 150.h),
         ],
       ),
     );

@@ -94,9 +94,20 @@ class _TaskDetailState extends State<TaskDetail> {
                     ),
                     SizedBox(height: 10.h),
                 
-                    Text(
-                      'Task name',
-                      style: kAppbarTextStyle(context),
+                    Row(
+                      children: [
+                        Text(
+                          'Task name',
+                          style: kAppbarTextStyle(context),
+                        ),
+                        SizedBox(width: 10.w),
+                        IconButton(
+                          onPressed: () {
+                            
+                          }, 
+                          icon: Icon(Icons.edit, size: 24.w, color: kMainColor(context),),
+                        )
+                      ],
                     ),
                     SizedBox(height: 20.h),
                 
@@ -338,8 +349,8 @@ class SectionWidget extends StatelessWidget {
           text: sectionTitle,
           mainColor: kMainColor(context),
           isBold: true,
-          fontSize: 14.sp,
-          iconSize: 20.w,
+          fontSize: 16.sp,
+          iconSize: 24.w,
         ),
         SizedBox(height: 15.h),
 
@@ -357,8 +368,8 @@ class IconWithText extends StatelessWidget {
     required this.icon, 
     required this.text, 
     required this.mainColor, 
-    this.fontSize=11.0,
-    this.iconSize=16.0,
+    this.fontSize,
+    this.iconSize,
     this.isBold = false,
   });
 
@@ -373,12 +384,12 @@ class IconWithText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: iconSize!.w, color: kMainColor(context)),
+        Icon(icon, size: iconSize ?? 16.sp, color: kMainColor(context)),
         SizedBox(width: 5.w),
         Text(
           text,
           style: kNormalTextStyle(context).copyWith(
-            fontSize: fontSize!.sp,
+            fontSize: fontSize ?? 14.sp,
             fontWeight: isBold! ? FontWeight.bold : FontWeight.normal,
           ),
         )

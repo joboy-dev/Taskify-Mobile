@@ -30,18 +30,18 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
   Widget build(BuildContext context) {
     List<MenuItem> items = [
       MenuItem(
-        text: 'Edit team', 
-        textColor: kMainColor(context),
-        icon: Icons.edit, 
+        text: 'Create task categpry',
+        textColor: kMainColor(context), 
+        icon: Icons.category_outlined, 
         onTap: () {
-
+          
         },
       ),
 
       MenuItem(
-        text: 'Create task categpry',
+        text: 'Create team task',
         textColor: kMainColor(context), 
-        icon: Icons.task_alt, 
+        icon: Icons.add_task_outlined, 
         onTap: () {
           
         },
@@ -89,15 +89,23 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
                     'Team name',
                     style: kAppbarTextStyle(context),
                   ),
+                  SizedBox(width: 10.w),
+                  IconButton(
+                    onPressed: () {
+                      
+                    }, 
+                    icon: Icon(Icons.edit, size: 24.w, color: kMainColor(context),),
+                  ),
                 ],
               ),
+              
               SizedBox(height: 20.h),
 
               SectionWidget(
                 sectionTitle: 'Members', 
                 icon: Icons.people_alt_outlined, 
                 child: SizedBox(
-                  height: 200.h,
+                  height: 380.h,
                   child: Column(
                     children: [
                       InkWell(
@@ -119,18 +127,72 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add, size: 24.w, color: kMainColor(context),),
+                            Icon(Icons.add, size: 24.w, color: kSecondaryColor),
                             SizedBox(width: 10.w),
                             Text(
                               'Add member',
                               style: kNormalTextStyle(context).copyWith(
-                                color: kMainColor(context),
+                                color: kSecondaryColor,
                               ),
                             ),
                           ],
                         ),
+                       ),
+                      ),
+                      SizedBox(height: 20.h),
+                      
+                      SizedBox(
+                        height: 300.h,
+                        child: ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return BaseCard(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: CircleAvatar(
+                                      backgroundColor: kNeutralLightGrey,
+                                      radius: 24.r,
+                                    ),
+                                  ),
+                                  SizedBox(width: 20.w),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Name Name',
+                                          style: kNormalTextStyle(context).copyWith(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                        Row(
+                                        children: [
+                                          Text(
+                                            'Role: ',
+                                            style: kSecondaryNormalTextStyle(context),
+                                          ),
+                                          Text(
+                                            'Viewer',
+                                            style: kSecondaryNormalTextStyle(context).copyWith(
+                                              color: kSecondaryColor
                                             ),
-                      ) 
+                                          ),
+                                        ],
+                                      ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -166,7 +228,7 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
                       );
                     },
                   ),
-                )
+                ),
               ),
             ],
           ),

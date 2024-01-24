@@ -50,10 +50,13 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
 
   String? selectedPriority;
   String? selectedCategory;
+  String? selectedProject;
 
   // Error texts
   bool showCalendarError = false;
   bool showMemberError = false;
+
+  bool isTeamTask = false;
 
   validateNonTextFields() {
     // Date validation
@@ -97,6 +100,18 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text(
+          //       'Project: ',
+          //       style: kNormalTextStyle(context),
+          //     )
+              
+          //   ],
+          // ),
+          // SizedBox(height: 20.h),
+
           NormalTextFieldNoPrefixIcon(
             hintText: 'Task name',
             labelText: 'Name',
@@ -209,7 +224,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
                   child: Text(
                     'Select date',
                     style: kNormalTextStyle(context).copyWith(
-                      color: showMemberError ? kSemanticRed : kMainColor(context),
+                      color: showMemberError ? kSemanticRed : kSecondaryColor,
                     ),
                   ),
                 ),
@@ -247,8 +262,39 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
               },
             ),
           ) : const SizedBox(),
+
+          // Project
+          DropDownFormField(
+            value: selectedPriority, 
+            items: Priority.values.map(
+              (priority) => DropdownMenuItem(
+                value: priorityValues[priority],
+                child: Text(
+                  priority.name,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedPriority = value;
+              });
+
+              logger(selectedPriority!);
+            },
+            labelText: 'Select project',
+            prefixIcon: Icons.dashboard_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ),
       
-          
+          // Priority
           DropDownFormField(
             value: selectedPriority, 
             items: Priority.values.map(
@@ -279,7 +325,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             fillColor: kScaffoldBgColor(context),
           ),
 
-          
+          // Category
           DropDownFormField(
             value: selectedPriority, 
             items: Priority.values.map(
@@ -331,6 +377,65 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             maxLines: 5,
           ),
           SizedBox(height: 10.h),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Team task',
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+
+              Transform.scale(
+                scale: 1.w,
+                child: Switch.adaptive(
+                  value: isTeamTask, 
+                  activeTrackColor: kPrimaryColor,
+                  inactiveTrackColor: kNeutralLightGrey,
+                  onChanged: (value) {
+                    setState(() {
+                      isTeamTask = value;
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 20.h),
+
+          // Team
+          !isTeamTask ? const SizedBox() : DropDownFormField(
+            value: selectedPriority, 
+            items: Priority.values.map(
+              (priority) => DropdownMenuItem(
+                value: priorityValues[priority],
+                child: Text(
+                  priority.name,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedPriority = value;
+              });
+
+              logger(selectedPriority!);
+            },
+            labelText: 'Select team',
+            prefixIcon: Icons.people_alt_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ),
       
           Button(
             buttonText: 'Create', 
@@ -341,7 +446,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             textColor: kNeutralLight,
           ),
 
-          SizedBox(height: 20.h),
+          SizedBox(height: 150.h),
         ],
       ),
     );
