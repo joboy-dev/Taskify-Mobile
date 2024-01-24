@@ -404,7 +404,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
               )
             ],
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 10.h),
 
           // Team
           !isTeamTask ? const SizedBox() : DropDownFormField(
@@ -436,6 +436,7 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             filled: true,
             fillColor: kScaffoldBgColor(context),
           ),
+          SizedBox(height: 10.h),
       
           Button(
             buttonText: 'Create', 
