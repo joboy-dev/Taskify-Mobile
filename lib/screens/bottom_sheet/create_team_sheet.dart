@@ -172,7 +172,6 @@ class _CreateTeamSheetState extends State<CreateTeamSheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 10.h),
       

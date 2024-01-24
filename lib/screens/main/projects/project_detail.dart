@@ -2,11 +2,14 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/models/menu_item.dart';
-import 'package:taskify/screens/main/base_nav_screen.dart';
+import 'package:taskify/screens/base_nav_screen.dart';
+import 'package:taskify/screens/bottom_sheet/user/view_other_users_profile_sheet.dart';
 import 'package:taskify/screens/main/tasks/task_detail.dart';
 import 'package:taskify/shared/constants.dart';
+import 'package:taskify/shared/widgets/bottom_sheet.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
+import 'package:taskify/shared/widgets/search.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
   const ProjectDetailScreen({super.key});
@@ -16,6 +19,8 @@ class ProjectDetailScreen extends StatefulWidget {
 }
 
 class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerProviderStateMixin {
+
+  bool showSearchWidget = false;
 
   List<String> images = [
     'assets/images/feature1.png',
@@ -71,13 +76,13 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
             children: [
               Row(
                 children: [
-                  Icon(Icons.dashboard_outlined, size: 36.w, color: kNeutralDarkGrey),
-                  SizedBox(width: 15.w),
+                  Icon(Icons.dashboard_outlined, size: 36.w, color: kMainColor(context)),
+                  SizedBox(width: 10.w),
                   Text(
                     'Project Name',
                     style: kAppbarTextStyle(context),
                   ),
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 5.w),
                   IconButton(
                     onPressed: () {
                       
@@ -96,107 +101,175 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
 
             ],
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 10.h),
 
           SectionWidget(
-            sectionTitle: 'Members', 
-            icon: Icons.people_alt_outlined, 
-            child: SizedBox(
-              height: 380.h,
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      
-                    },
-                    borderRadius: BorderRadius.circular(16.r),
-                    child: Container(
-                    height: 50.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: kScaffoldBgColor(context),
-                      borderRadius: BorderRadius.circular(16.r),
-                      border: Border.all(
-                        color: kPrimaryColor,
-                        width: 1.w
-                      )
+            sectionTitle: 'Members',
+            icon: Icons.people_alt_outlined,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 50.h,
+                      width: 210.h,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 8.r),
+                            child: InkWell(
+                              onTap: () {
+                                showSheet(context, const ViewOtherUsersProfileSheet(), 'User details');
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: kNeutralLightGrey,
+                                backgroundImage: const AssetImage('assets/images/feature3.png'),
+                                radius: 24.r,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add, size: 24.w, color: kSecondaryColor,),
-                        SizedBox(width: 10.w),
-                        Text(
-                          'Add member',
-                          style: kNormalTextStyle(context).copyWith(
-                            color: kSecondaryColor,
+                
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          showSearchWidget = !showSearchWidget;
+                        });
+                      }, 
+                      icon: Icon(
+                        showSearchWidget ? Icons.check : Icons.add, 
+                        size: 24.w, 
+                        color: showSearchWidget ? kSemanticGreen : kPrimaryColor,
+                      ),
+                      style: IconButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.r),
+                          side: BorderSide(
+                            width: 1.w,
+                            color: showSearchWidget ? kSemanticGreen : kPrimaryColor,
+                            style: BorderStyle.solid
                           ),
                         ),
-                      ],
+                        padding: EdgeInsets.symmetric(horizontal: 15.r, vertical: 15.r)
+                      ),
                     ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  
-                  SizedBox(
-                    height: 300.h,
-                    child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        return BaseCard(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: CircleAvatar(
-                                  backgroundColor: kNeutralLightGrey,
-                                  radius: 24.r,
-                                ),
-                              ),
-                              SizedBox(width: 20.w),
-                              Expanded(
-                                flex: 5,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Name Name',
-                                      style: kNormalTextStyle(context).copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                    Row(
-                                    children: [
-                                      Text(
-                                        'Role: ',
-                                        style: kSecondaryNormalTextStyle(context),
-                                      ),
-                                      Text(
-                                        'Viewer',
-                                        style: kSecondaryNormalTextStyle(context).copyWith(
-                                          color: kSecondaryColor
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            )
+                  ],
+                ),
+                SizedBox(height: 10.h),
+      
+                // Search for members
+                showSearchWidget ? SizedBox(
+                  height: 250.h,
+                  child: const SearchWidget(), // implement just like calendar widget
+                ) : const SizedBox(),
+              ],
+            ),
           ),
 
+          // SectionWidget(
+          //   sectionTitle: 'Members', 
+          //   icon: Icons.people_alt_outlined, 
+          //   child: SizedBox(
+          //     height: 380.h,
+          //     child: Column(
+          //       children: [
+          //         InkWell(
+          //           onTap: () {
+                      
+          //           },
+          //           borderRadius: BorderRadius.circular(16.r),
+          //           child: Container(
+          //           height: 50.h,
+          //           width: double.infinity,
+          //           decoration: BoxDecoration(
+          //             color: kScaffoldBgColor(context),
+          //             borderRadius: BorderRadius.circular(16.r),
+          //             border: Border.all(
+          //               color: kPrimaryColor,
+          //               width: 1.w
+          //             )
+          //           ),
+          //           child: Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Icon(Icons.add, size: 24.w, color: kSecondaryColor,),
+          //               SizedBox(width: 10.w),
+          //               Text(
+          //                 'Add member',
+          //                 style: kNormalTextStyle(context).copyWith(
+          //                   color: kSecondaryColor,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //           ),
+          //         ),
+          //         SizedBox(height: 10.h),
+                  
+          //         SizedBox(
+          //           height: 300.h,
+          //           child: ListView.builder(
+          //             itemCount: 5,
+          //             itemBuilder: (context, index) {
+          //               return BaseCard(
+          //                 child: Row(
+          //                   children: [
+          //                     Expanded(
+          //                       flex: 1,
+          //                       child: CircleAvatar(
+          //                         backgroundColor: kNeutralLightGrey,
+          //                         radius: 24.r,
+          //                       ),
+          //                     ),
+          //                     SizedBox(width: 20.w),
+          //                     Expanded(
+          //                       flex: 5,
+          //                       child: Column(
+          //                         crossAxisAlignment: CrossAxisAlignment.start,
+          //                         children: [
+          //                           Text(
+          //                             'Name Name',
+          //                             style: kNormalTextStyle(context).copyWith(
+          //                               fontSize: 16.sp,
+          //                               fontWeight: FontWeight.bold
+          //                             ),
+          //                           ),
+          //                           Row(
+          //                           children: [
+          //                             Text(
+          //                               'Role: ',
+          //                               style: kSecondaryNormalTextStyle(context),
+          //                             ),
+          //                             Text(
+          //                               'Viewer',
+          //                               style: kSecondaryNormalTextStyle(context).copyWith(
+          //                                 color: kSecondaryColor
+          //                               ),
+          //                             ),
+          //                           ],
+          //                         ),
+
+          //                         ],
+          //                       ),
+          //                     ),
+          //                   ],
+          //                 ),
+          //               );
+          //             },
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   )
+          // ),
+
           SectionWidget(
-            sectionTitle: 'Standalone tasks',
+            sectionTitle: 'Project tasks',
             icon: Icons.task_alt,
             child: SizedBox(
               width: double.infinity,
@@ -208,7 +281,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> with TickerPr
                     taskId: 1,
                     taskName: 'Task Name', 
                     endDate: '02/02/2024',
-                    showAssigned: true,
                   );
                 },
               ),

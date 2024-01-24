@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'package:taskify/screens/main/base_nav_screen.dart';
+import 'package:taskify/screens/base_nav_screen.dart';
 import 'package:taskify/services/provider/notifications_provider.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/widgets/cards.dart';

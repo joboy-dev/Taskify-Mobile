@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/models/menu_item.dart';
 import 'package:taskify/screens/base_screen.dart';
+import 'package:taskify/screens/bottom_sheet/user/view_other_users_profile_sheet.dart';
 import 'package:taskify/screens/main/tasks/task_detail.dart';
 import 'package:taskify/shared/constants.dart';
+import 'package:taskify/shared/widgets/bottom_sheet.dart';
 import 'package:taskify/shared/widgets/button.dart';
 import 'package:taskify/shared/widgets/cards.dart';
 
@@ -84,12 +86,12 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
                     backgroundColor: kNeutralLightGrey,
                     radius: 24.r,
                   ),
-                  SizedBox(width: 20.w),
+                  SizedBox(width: 10.w),
                   Text(
                     'Team name',
                     style: kAppbarTextStyle(context),
                   ),
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 5.w),
                   IconButton(
                     onPressed: () {
                       
@@ -147,6 +149,13 @@ class _TeamDetailScreenState extends State<TeamDetailScreen> {
                           itemCount: 5,
                           itemBuilder: (context, index) {
                             return BaseCard(
+                              onTap: () {
+                                showSheet(
+                                  context, 
+                                  const ViewOtherUsersProfileSheet(), 
+                                  'User Details'
+                                );
+                              },
                               child: Row(
                                 children: [
                                   Expanded(

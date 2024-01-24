@@ -63,6 +63,15 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
           showSheet(context, const CreateTeamSheet(), 'Create Team');
         },
       ),
+
+      MenuItem(
+        text: 'Send notification', 
+        textColor: kMainColor(context),
+        icon: Icons.send_outlined, 
+        onTap: () {
+          showSheet(context, const CreateTeamSheet(), 'Send Notification');
+        },
+      ),
     ];
 
     return BaseScreen(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskify/screens/base_screen.dart';
-import 'package:taskify/screens/main/base_nav_screen.dart';
+import 'package:taskify/screens/base_nav_screen.dart';
 import 'package:taskify/screens/main/projects/tabs/active_projects_screen.dart';
 import 'package:taskify/screens/main/projects/tabs/completed_projects_screen.dart';
 import 'package:taskify/shared/constants.dart';

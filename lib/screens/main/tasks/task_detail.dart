@@ -96,17 +96,25 @@ class _TaskDetailState extends State<TaskDetail> {
                 
                     Row(
                       children: [
+                       CircleAvatar(
+                          backgroundColor: kNeutralLightGrey,
+                          radius: 24.r,
+                          child: Center(
+                            child: Icon(Icons.task_alt, color: kNeutralDark, size: 30.w,),
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
                         Text(
                           'Task name',
                           style: kAppbarTextStyle(context),
                         ),
-                        SizedBox(width: 10.w),
+                        SizedBox(width: 5.w),
                         IconButton(
                           onPressed: () {
                             
                           }, 
                           icon: Icon(Icons.edit, size: 24.w, color: kMainColor(context),),
-                        )
+                        ),
                       ],
                     ),
                     SizedBox(height: 20.h),

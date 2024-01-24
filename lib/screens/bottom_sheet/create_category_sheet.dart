@@ -32,6 +32,9 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
   ];
   String? selectedLabelColor;
 
+  List<String> teams = ['1', '2', '3'];
+  String? selectedTeam;
+
   validateNonTextFields() {
     // Label validation
     if (selectedLabelColor == null) {
@@ -63,31 +66,31 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Text(
-          //       'Team category',
-          //       style: kNormalTextStyle(context).copyWith(
-          //         fontSize: 16.sp,
-          //         fontWeight: FontWeight.bold
-          //       ),
-          //     ),
-          //     Transform.scale(
-          //       scale: 1.w,
-          //       child: Switch.adaptive(
-          //         value: isTeamCategory, 
-          //         activeTrackColor: kPrimaryColor,
-          //         inactiveTrackColor: kNeutralLightGrey,
-          //         onChanged: (value) {
-          //           setState(() {
-          //             isTeamCategory = value;
-          //           });
-          //         },
-          //       ),
-          //     ),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Team category',
+                style: kNormalTextStyle(context).copyWith(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              Transform.scale(
+                scale: 1.w,
+                child: Switch.adaptive(
+                  value: isTeamCategory, 
+                  activeTrackColor: kPrimaryColor,
+                  inactiveTrackColor: kNeutralLightGrey,
+                  onChanged: (value) {
+                    setState(() {
+                      isTeamCategory = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
 
           SizedBox(height: 10.h),
           NormalTextFieldNoPrefixIcon(
@@ -107,7 +110,6 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
           ),
 
           NormalTextFieldNoPrefixIcon(
@@ -127,10 +129,41 @@ class _CreateCategorySheetState extends State<CreateCategorySheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
             maxLines: 5,
           ),
           SizedBox(height: 10.h),
+
+          // Team
+          isTeamCategory ? DropDownFormField(
+            value: selectedTeam, 
+            items: teams.map(
+              (team) => DropdownMenuItem(
+                value: team,
+                child: Text(
+                  team,
+                  style: kNormalTextStyle(context),
+                ),
+              )
+            ).toList(), 
+            onChanged: (value) {
+              setState(() {
+                selectedTeam = value;
+              });
+
+              logger(selectedTeam!);
+            },
+            labelText: 'Select team',
+            prefixIcon: Icons.people_alt_outlined, 
+            enabledBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            focusedBorderColor: kScaffoldBgColor(context) == kNeutralDark ? kNeutralLight : Colors.transparent, 
+            errorBorderColor: kSemanticRed, 
+            focusedErrorBorderColor: kSemanticRed, 
+            errorTextStyleColor: kSemanticRed, 
+            iconColor: kMainColor(context), 
+            filled: true,
+            fillColor: kScaffoldBgColor(context),
+          ) : const SizedBox(),
+      
 
           FieldSection(
             text: 'Select label', 

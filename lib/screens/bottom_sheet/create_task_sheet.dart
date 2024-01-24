@@ -49,6 +49,8 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
   List selectedMembers = [];
 
   String? selectedPriority;
+
+  List<String> categories = [];
   String? selectedCategory;
 
   List<String> projects = ['1', '2', '3', '4', '5'];
@@ -147,7 +149,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
           ),
           SizedBox(height: 10.h),
       
@@ -378,22 +379,22 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
           // TODO: Based on whether it is a team task adjust the categories accordingly
           // Category
           DropDownFormField(
-            value: selectedPriority, 
-            items: Priority.values.map(
-              (priority) => DropdownMenuItem(
-                value: priorityValues[priority],
+            value: selectedCategory, 
+            items: categories.map(
+              (category) => DropdownMenuItem(
+                value: category,
                 child: Text(
-                  priority.name,
+                  category,
                   style: kNormalTextStyle(context),
                 ),
               )
             ).toList(), 
             onChanged: (value) {
               setState(() {
-                selectedPriority = value;
+                selectedCategory = value;
               });
 
-              logger(selectedPriority!);
+              logger(selectedCategory!);
             },
             labelText: 'Select category',
             prefixIcon: Icons.category_outlined, 
@@ -424,7 +425,6 @@ class _CreateTaskSheetState extends State<CreateTaskSheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
             maxLines: 5,
           ),
           SizedBox(height: 10.h),

@@ -14,7 +14,7 @@ class DeleteAccountSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Are you sure you want to delete your account. You will not be able to recover your data.',
+          'Are you sure you want to delete your account? You will not be able to recover your data.',
           style: kNormalTextStyle(context).copyWith(
             fontSize: 16.sp
           ),

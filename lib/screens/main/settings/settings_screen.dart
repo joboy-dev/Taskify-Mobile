@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:taskify/screens/bottom_sheet/create_category_sheet.dart';
-import 'package:taskify/screens/bottom_sheet/delete_account_sheet.dart';
-import 'package:taskify/screens/bottom_sheet/logout_sheet.dart';
-import 'package:taskify/screens/main/base_nav_screen.dart';
-import 'package:taskify/screens/main/settings/all_categories_screen.dart';
+import 'package:taskify/screens/bottom_sheet/send_notification_sheet.dart';
+import 'package:taskify/screens/bottom_sheet/user/delete_account_sheet.dart';
+import 'package:taskify/screens/bottom_sheet/user/logout_sheet.dart';
+import 'package:taskify/screens/base_nav_screen.dart';
+import 'package:taskify/screens/main/settings/categories/all_categories_screen.dart';
 import 'package:taskify/screens/main/settings/teams/all_teams_screen.dart';
 import 'package:taskify/screens/main/settings/edit_profile_screen.dart';
 import 'package:taskify/services/provider/notifications_provider.dart';
@@ -292,45 +293,73 @@ class _SettingsScreenState extends State<SettingsScreen> {
           
               SettingsSection(
                 sectionName: 'Notifications', 
-                child: SettingsCard(
-                  leading: CircleAvatar(
-                    backgroundColor: kNeutralLightGrey,
-                    radius: 24.r,
-                    child: Icon(
-                      receiveNotifications 
-                        ? Icons.notifications_active_outlined
-                        :Icons.notifications_off_outlined,
-                      color: kNeutralDark,
-                      size: 24.w,
-                    ),
-                  ),
-                  main: Expanded(
-                    flex: 4,
-                    child: Text(
-                      receiveNotifications ? 'Notifications: On' : 'Notifications:: Off',
-                      style: kNormalTextStyle(context).copyWith(
-                        fontWeight: FontWeight.bold,
+                child: Column(
+                  children: [
+                    SettingsCard(
+                      leading: CircleAvatar(
+                        backgroundColor: kNeutralLightGrey,
+                        radius: 24.r,
+                        child: Icon(
+                          receiveNotifications 
+                            ? Icons.notifications_active_outlined
+                            :Icons.notifications_off_outlined,
+                          color: kNeutralDark,
+                          size: 24.w,
+                        ),
+                      ),
+                      main: Expanded(
+                        flex: 4,
+                        child: Text(
+                          receiveNotifications ? 'Notifications: On' : 'Notifications:: Off',
+                          style: kNormalTextStyle(context).copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      trailing: Expanded(
+                        flex: 1,
+                        child: Transform.scale(
+                          scale: 1.r,
+                          child: Switch.adaptive(
+                            value: receiveNotifications, 
+                            activeTrackColor: kPrimaryColor,
+                            inactiveTrackColor: kNeutralLightGrey,
+                            onChanged: (value) {
+                              setState(() {
+                                receiveNotifications = value;
+                              });
+                              notificationsProvider.toggleNotifications();
+                              logger(receiveNotifications);
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  trailing: Expanded(
-                    flex: 1,
-                    child: Transform.scale(
-                      scale: 1.r,
-                      child: Switch.adaptive(
-                        value: receiveNotifications, 
-                        activeTrackColor: kPrimaryColor,
-                        inactiveTrackColor: kNeutralLightGrey,
-                        onChanged: (value) {
-                          setState(() {
-                            receiveNotifications = value;
-                          });
-                          notificationsProvider.toggleNotifications();
-                          logger(receiveNotifications);
-                        },
-                      ),
+
+                    InkWell(
+                      onTap: () {
+                        showSheet(context, const SendNotificationSheet(), 'Send Notification');
+                      },
+                      borderRadius: BorderRadius.circular(16.r),
+                      child: SettingsCard(
+                        leading: CircleAvatar(
+                          backgroundColor: kNeutralLightGrey,
+                          radius: 24.r,
+                          child: Icon(
+                            Icons.send_outlined,
+                            color: kNeutralDark,
+                            size: 24.w,
+                          ),
+                        ),
+                        main: Text(
+                          'Send notification message',
+                          style: kNormalTextStyle(context).copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
                     ),
-                  ),
+                  ],
                 )
               ),
           

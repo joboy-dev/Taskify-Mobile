@@ -245,7 +245,6 @@ class _CreateProjectSheetState extends State<CreateProjectSheet> {
             cursorColor: kMainColor(context),
             filled: true,
             fillColor: kScaffoldBgColor(context),
-            textInputType: TextInputType.visiblePassword,
             maxLines: 5,
           ),
           SizedBox(height: 10.h),
