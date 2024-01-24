@@ -5,6 +5,7 @@ import 'package:taskify/screens/base_screen.dart';
 import 'package:taskify/screens/bottom_sheet/create_project_sheet.dart';
 import 'package:taskify/screens/bottom_sheet/create_task_sheet.dart';
 import 'package:taskify/screens/bottom_sheet/create_team_sheet.dart';
+import 'package:taskify/screens/bottom_sheet/send_notification_sheet.dart';
 import 'package:taskify/shared/constants.dart';
 import 'package:taskify/shared/widgets/bottom_sheet.dart';
 import 'package:taskify/shared/widgets/button.dart';
@@ -69,7 +70,7 @@ class _BaseNavScreenState extends State<BaseNavScreen> {
         textColor: kMainColor(context),
         icon: Icons.send_outlined, 
         onTap: () {
-          showSheet(context, const CreateTeamSheet(), 'Send Notification');
+          showSheet(context, const SendNotificationSheet(), 'Send Notification');
         },
       ),
     ];
