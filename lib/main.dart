@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:taskify/screens/onboarding/splash_screen.dart';
-import 'package:taskify/services/provider/notifications_provider.dart';
-import 'package:taskify/services/provider/theme_provider.dart';
-import 'package:taskify/shared/constants.dart';
+import 'package:taskify/features/general/presentation/pages/onboarding/splash_screen.dart';
+import 'package:taskify/features/notification/presentation/providers/notifications_provider.dart';
+import 'package:taskify/features/general/presentation/providers/theme_provider.dart';
+import 'package:taskify/core/constants/constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
